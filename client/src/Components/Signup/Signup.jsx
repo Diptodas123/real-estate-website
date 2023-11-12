@@ -10,12 +10,40 @@ const Signup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (credentials.userConfirmPassword !== credentials.userPassword) {
+        if (credentials.userPassword.length < 8) {
+            return toast.warn("Password must be at least 8 characters long!", {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                transition:Flip,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+        }
+        else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(credentials.userEmail)) {
+            return toast.warn("Enter a valid Email!", {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                transition:Flip,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+        }
+
+        else if (credentials.userConfirmPassword !== credentials.userPassword) {
             return toast.warn("Confirm password doesn't match with password!", {
                 position: "top-right",
                 autoClose: 3000,
                 hideProgressBar: false,
                 closeOnClick: true,
+                transition:Flip,
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
@@ -60,10 +88,8 @@ const Signup = () => {
                 draggable: true,
                 theme: "colored",
             });
+            setCredentials({ userName: "", userEmail: "", userPhn: "", userPassword: "", userConfirmPassword: "" });
         };
-        // setTimeout(() => {
-        //     window.location.reload();
-        // }, 5700);
     }
 
 
@@ -100,7 +126,7 @@ const Signup = () => {
                                 </div>
                                 <div className="row">
                                     <div className="signup-group col-12">
-                                        <input type="text" className="form-control" name="userPhn" id="userPhn" placeholder="Phone Number" required onChange={onChange} value={credentials.userPhn} />
+                                        <input type="number" className="form-control" name="userPhn" id="userPhn" placeholder="Phone Number" required onChange={onChange} value={credentials.userPhn} />
                                     </div>
                                 </div>
                                 <div className="row">

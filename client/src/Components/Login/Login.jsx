@@ -24,6 +24,24 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(credentials.email)) {
+            toast.warn("Enter a valid Email!", {
+                position: "top-right",
+                autoClose: 3000,
+                transition:Flip,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+            setTimeout(()=>{
+                setCredentials({email:"",password:""});
+            },3700);
+            return;
+        }
+
         const response = await fetch("http://localhost:8000/api/auth/login", {
             method: "POST",
             headers: {
@@ -111,8 +129,6 @@ const Login = () => {
                                 </div>
                             </form>
                         </div>
-
-
                     </div>
                 </div>
             </div>
