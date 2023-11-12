@@ -1,7 +1,75 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Login.css";
-import { Link } from "react-router-dom";
+import { Flip, toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Link, useNavigate } from "react-router-dom";
 const Login = () => {
+    const [credentials, setCredentials] = useState({ email: "", password: "" });
+
+    const navigate = useNavigate();
+
+    const getUserData = async () => {
+        const response = await fetch("http://localhost:8000/api/auth/getuser", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token": localStorage.getItem("token")
+            }
+        });
+
+        const json = await response.json();
+        console.log(json.user.username);
+        return json.user.username;
+    }
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const response = await fetch("http://localhost:8000/api/auth/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email: credentials.email, password: credentials.password })
+        });
+
+        const json = await response.json();
+        if (json.success) {
+            localStorage.setItem("token", json.authToken);
+            toast.success(`Welcome, ${await getUserData()}!`, {
+                position: "top-right",
+                autoClose: 3000,
+                transition: Flip,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+            setTimeout(() => {
+                navigate("/");
+            }, 3700);
+            
+        } else {
+            toast.error("Please Enter Valid Credentials Or Try Again Later!", {
+                position: "top-right",
+                autoClose: 3000,
+                transition: Flip,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+            setCredentials({ email: "", password: "" });
+        }
+    }
+
+    const onChange = (e) => {
+        setCredentials({ ...credentials, [e.target.name]: e.target.value });
+    }
+
     return (
         <>
             <div className="main-body">
@@ -16,22 +84,17 @@ const Login = () => {
                         <img src="img/login1.jpg" alt="img/login1.jpg"></img>
                     </div>
                     <div className="right-part">
-                        <div className="container-fluid">
-                            <h1 className="mb-5" style={{ borderBottom: "1px solid #7a4bcf" }}>Log In</h1>
-                            <form className="login-form">
+                        <div className="container my-5">
+                            <h1 style={{ borderBottom: "1px solid #7a4bcf", fontSize: "40px" }} className="text-md-center text-sm-left">Log In</h1>
+                            <form className="login-form container" onSubmit={handleSubmit}>
                                 <div className="row">
                                     <div className="login-group col-12">
-                                        <label htmlFor="userEmail" className="login-label" >Email address<span style={{ color: "red" }}>*</span></label>
-                                        <input name="email" type="email" className="form-control" id="userEmail" aria-describedby="emailHelp" autoComplete="false" />
-                                        <span className="mandatory-field"><i style={{ color: 'red' }}>enter your email *</i></span>
+                                        <input name="email" type="email" className="form-control" id="email" onChange={onChange} value={credentials.email} autoComplete="false" required placeholder="Email" />
                                     </div>
                                 </div>
                                 <div className="row">
                                     <div className="login-group col-12">
-                                        <label htmlFor="exampleInputPassword1" className="login-label">Password<span style={{ color: "red" }}>*</span></label>
-                                        <input id="exampleInputPassword1" name="password" type="password" className="form-control" autoComplete="false" />
-                                        <i style={{ cursor: "pointer" }} className="fa-solid fa-eye eye-symbol-login"></i>
-                                        <span className="mandatory-field"><i style={{ color: 'red' }}>enter your password *</i></span>
+                                        <input name="password" type="password" className="form-control" onChange={onChange} autoComplete="false" required value={credentials.password} placeholder="Password" />
                                     </div>
                                 </div>
                                 <div className="row">
@@ -53,6 +116,7 @@ const Login = () => {
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </>
     );
 }

@@ -1,5 +1,6 @@
 /* Controls the Css for the card */
 .rent-card {
+    position: relative;
     border-radius: 20px 20px 20px 20px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
     /* background-color: blue; */
@@ -11,6 +12,13 @@
     height: 180px;
     width: 100%;
     border-radius: 20px 20px 0px 0px;
+}
+.wishlist{
+    position: absolute;
+    right: 26px;
+    cursor: pointer;
+    top: 21px;
+    font-size: 31px;
 }
 
 .rent-card-top img {
@@ -131,7 +139,6 @@
     color: white;
     font-weight: bold;
     background-color: transparent;
-    z-index: 3;
 }
 
 .renting .renting-page-header-subheading-hero {
@@ -142,7 +149,6 @@
     color: white;
     font-weight: bold;
     background-color: transparent;
-    z-index: 3;
 }
 
 #rent-page-header-image {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "./Buy.css";
 import BuyCategories from "../../Data/BuyCategories.js";
 import Footer from "../Footer/Footer";
@@ -6,11 +6,16 @@ import Menu from "../Menu/Menu";
 
 const BuyPackages = () => {
 
-    const [buyData, setData] = useState(BuyCategories);
-    const backToTop = () => {
-        document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
+    const [buyData, setData] = useState([]);
+    useEffect(() => {
+        window.scrollTo(0, 0);
+        setData(BuyCategories);
+    }, []);
+
+    const handleSearch = () => {
+
     }
+
     return (
         <>
             <Menu />
@@ -34,7 +39,7 @@ const BuyPackages = () => {
                     {/* // ?banner Hero for the buy page search bar icon button */}
                     <div className="buy-page-header-hero-search-complete">
                         <input type="text" className="buying-page-header-hero-search" placeholder="What're you looking for?"></input>
-                        <button className="buying-page-header-hero-search-button"><i class="fa-solid fa-magnifying-glass fa-lg"></i></button>
+                        <button onClick={handleSearch} className="buying-page-header-hero-search-button"><i class="fa-solid fa-magnifying-glass fa-lg"></i></button>
                     </div>
 
                     {/* // !starting ot the page below */}
@@ -44,7 +49,6 @@ const BuyPackages = () => {
                         <div>
                             <h3 className="buying-flats-header mt-1 mb-5"><b>Search Properties to buy</b></h3>
                         </div>
-
                         <div className="row">
 
                             {
@@ -60,6 +64,7 @@ const BuyPackages = () => {
                                                 {/* top side of the card */}
                                                 <div className="buy-card-top">
                                                     <img src={photo} alt={photoAlt} height={"100%"} width={"100%"}></img>
+                                                    <i className="fa-regular fa-heart wishlist" style={{ position: "absolute" }}></i>
                                                 </div>
 
                                                 {/* bottom side if the card */}

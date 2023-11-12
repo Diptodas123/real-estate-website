@@ -148,9 +148,10 @@
 
 }
 
-.testimonilas-conatiner {
+.testimonilas-container {
     background-color: #8875a3bd;
     height: 480px;
+    border-radius: 50px;
 }
 
 .testimonilas-img {
@@ -169,7 +170,7 @@
     font-weight: 20px;
 }
 
-.newsletter-conatiner input[type="email"] {
+.newsletter-container input[type="email"] {
     width: 30%;
     padding: 10px;
 
@@ -221,16 +222,12 @@
         width: auto;
     }
 
-    .testimonilas-conatiner {
-        height: auto;
-    }
-
     .features-text {
         font-size: auto;
         font-weight: auto;
     }
 
-    .newsletter-conatiner input[type="email"] {
+    .newsletter-container input[type="email"] {
         width: auto;
         padding: auto;
     }
@@ -240,7 +237,11 @@
         height: auto;
     }
 }
-
+@media(width<=768px){
+    .testimonilas-container{
+        height: 700px;
+    }
+}
 @media(max-width:900px) {
 
     .card img {
@@ -257,16 +258,12 @@
         width: auto;
     }
 
-    .testimonilas-conatiner {
-        height: 600px;
-    }
-
     .features-text {
         font-size: auto;
         font-weight: auto;
     }
 
-    .newsletter-conatiner input[type="email"] {
+    .newsletter-container input[type="email"] {
         width: auto;
         padding: auto;
     }
@@ -274,5 +271,10 @@
     .newsletter-btn {
         width: auto;
         height: auto;
+    }
+}
+@media(width>=769px){
+    .testimonilas-container {
+        height: 520px;
     }
 }

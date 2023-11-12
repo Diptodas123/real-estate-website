@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Rent.css";
-import rentCategories from "../../Data/RentCategories.js";
+import RentCategories from "../../Data/RentCategories.js";
 import Footer from "../Footer/Footer";
 import Menu from "../Menu/Menu";
 
 const RentPackages = () => {
-    const [rentsData, setData] = useState(rentCategories);
+    const [rentsData, setData] = useState([]);
 
-    const backToTop = () => {
-        document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
-    }
+    useEffect(() => {
+        window.scrollTo(0, 0);
+        setData(RentCategories);
+    }, []);
 
     return (
         <>
@@ -20,7 +20,7 @@ const RentPackages = () => {
                 <div className="renting mt-5">
 
                     <div className="renting-page-header-hero">
-                        <img src="img/rent_page_head.jpg" style={{objectFit:"cover"}} height={"400px"} width={"100%"} id="buy-page-header-image" alt="buy_page_header_image"></img>
+                        <img src="img/rent_page_head.jpg" style={{ objectFit: "cover" }} height={"400px"} width={"100%"} id="buy-page-header-image" alt="buy_page_header_image"></img>
 
 
                         <h1 className="renting-page-header-heading-hero">Discover your perfect home</h1>
@@ -48,6 +48,7 @@ const RentPackages = () => {
                                             <div className="rent-card bg-light">
                                                 <div className="rent-card-top">
                                                     <img src={photo} alt={photoAlt} height={"100%"} width={"100%"}></img>
+                                                    <i className="fa-regular fa-heart wishlist" style={{ position: "absolute" }}></i>
                                                 </div>
                                                 <div className="rent-card-bottom">
                                                     <p className="rent-card-prize">₹{rentPrice}<span className="rent-persqft" style={{ color: "#B7B7B7" }}></span></p>

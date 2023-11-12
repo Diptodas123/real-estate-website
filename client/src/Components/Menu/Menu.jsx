@@ -1,12 +1,20 @@
 import React from "react";
 import "./Menu.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const Menu = () => {
+
+    const navigate = useNavigate();
+
+    const handleLogOut = () => {
+        localStorage.removeItem("token");
+        navigate("/login");
+    }
+
     return (
         <>
             <nav className="navbar navbar-expand-lg bg-light navbar-main">
                 <Link className="navbar-brand" to="/">
-                    <img src="img/brand-logo.jpg" id="icon" className="mb-1" alt="img/brand-logo.jpg"/>
+                    <img src="img/brand-logo.jpg" id="icon" className="mb-1" alt="img/brand-logo.jpg" />
                     <strong className="brand-name"><span className="text-purple">Ghar</span>Dekho</strong>
                 </Link>
                 <button
@@ -44,16 +52,16 @@ const Menu = () => {
                                 <div className="dropdown-divider"></div>
                                 <Link
                                     className="dropdown-item sub-nav-link"
-                                    to="/"
+                                    to="/rent"
                                 >
-                                    Sell
+                                    Rent
                                 </Link>
                                 <div className="dropdown-divider"></div>
                                 <Link
                                     className="dropdown-item sub-nav-link"
-                                    to="/rent"
+                                    to="/postproperty"
                                 >
-                                    Rent
+                                    Advertise
                                 </Link>
                             </div>
                         </li>
@@ -73,18 +81,27 @@ const Menu = () => {
                             </Link>
                         </li>
                     </ul>
-
-                    <Link to="/login">
-                        <button type="button" className="btn btn-outline-purple">
-                            Log in
-                        </button>
-                    </Link>
-                    <Link className="ml-3 mr-2" to="/signup">
-                        <button type="button" className="btn btn-purple">
-                            Sign up
-                        </button>
-                    </Link>
-
+                    {
+                        !localStorage.getItem("token") ?
+                            <>
+                                <Link to="/login">
+                                    <button type="button" className="btn btn-outline-purple">
+                                        Log in
+                                    </button>
+                                </Link>
+                                <Link className="ml-3 mr-2" to="/signup">
+                                    <button type="button" className="btn btn-purple">
+                                        Sign up
+                                    </button>
+                                </Link>
+                            </>
+                            :
+                            <>
+                                <button type="button" className="btn btn-outline-purple mx-3" onClick={handleLogOut}>
+                                    <i className="fa-solid fa-right-from-bracket"></i> Log Out
+                                </button>
+                            </>
+                    }
                 </div>
             </nav>
         </>
