@@ -1,31 +1,37 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import './Contact.css';
 import Menu from "../Menu/Menu";
 import Footer from "../Footer/Footer";
+import UserContext from "../../Context/user/UserContext";
 
 const Contact = () => {
 
     const [contact, setContact] = useState({ name: "", email: "", phone: "", message: "" });
+    const context = useContext(UserContext);
+    const { getUser } = context;
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        if(localStorage.getItem("token")){
+        if (localStorage.getItem("token")) {
             getUserData();
         }
     }, []);
 
     const getUserData = async () => {
-        const response = await fetch("http://localhost:8000/api/auth/getuser", {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "auth-token":localStorage.getItem("token"),
-            }
-        });
+        //     const response = await fetch("http://localhost:8000/api/auth/getuser", {
+        //         method: "GET",
+        //         headers: {
+        //             "Content-Type": "application/json",
+        //             "auth-token":localStorage.getItem("token"),
+        //         }
+        //     });
 
-        const json = await response.json();
+        //     const json = await response.json();
 
-        setContact({ name: json.user.username, email: json.user.email, phone: json.user.phone });
+        //     setContact({ name: json.user.username, email: json.user.email, phone: json.user.phone });
+
+        const userData =await getUser();
+        setContact({ name: userData.user.username, email: userData.user.email, phone: userData.user.phone });
     }
 
     const onChange = (e) => {
