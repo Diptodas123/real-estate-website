@@ -18,20 +18,8 @@ const Contact = () => {
     }, []);
 
     const getUserData = async () => {
-        //     const response = await fetch("http://localhost:8000/api/auth/getuser", {
-        //         method: "GET",
-        //         headers: {
-        //             "Content-Type": "application/json",
-        //             "auth-token":localStorage.getItem("token"),
-        //         }
-        //     });
-
-        //     const json = await response.json();
-
-        //     setContact({ name: json.user.username, email: json.user.email, phone: json.user.phone });
-
         const userData =await getUser();
-        setContact({ name: userData.user.username, email: userData.user.email, phone: userData.user.phone });
+        setContact({ name: userData.username, email: userData.email, phone: userData.phone });
     }
 
     const onChange = (e) => {

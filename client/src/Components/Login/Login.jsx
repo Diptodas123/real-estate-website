@@ -1,26 +1,22 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import "./Login.css";
+import UserContext from "../../Context/user/UserContext";
 import { Flip, toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link, useNavigate } from "react-router-dom";
+
 const Login = () => {
     const [credentials, setCredentials] = useState({ email: "", password: "" });
+    const context = useContext(UserContext);
+    const { getUser } = context;
 
     const navigate = useNavigate();
 
     const getUserData = async () => {
-        const response = await fetch("http://localhost:8000/api/auth/getuser", {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "auth-token": localStorage.getItem("token")
-            }
-        });
-
-        const json = await response.json();
-        console.log(json.user.username);
-        return json.user.username;
+        const {username}=await getUser();
+        return username;
     }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
