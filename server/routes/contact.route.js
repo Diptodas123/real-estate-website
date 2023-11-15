@@ -1,6 +1,7 @@
 import express from "express";
 import { body, validationResult } from "express-validator";
 import fetchUser from "../middleware/fetchUser.js";
+import {fetchContacts} from "../controller/contact.controller.js";
 import Contact from "../schema/contactSchema.js";
 const router = express.Router();
 
@@ -28,11 +29,13 @@ router.post("/postcontact", fetchUser, [
         })
 
         const savedContact = await contact.save();
-        res.status(200).json({ msg: "Contact form submitted successfully", savedContact });
+        res.status(200).json({ success: true, msg: "Contact form submitted successfully", savedContact });
     } catch (error) {
         console.log(error.message);
         return res.status(500).send("Internal Server error");
     }
 })
 
+//Route 2: get request to fetch all contact details to admin. Admin Login required
+router.get("/fetchcontacts",fetchContacts);
 export default router;

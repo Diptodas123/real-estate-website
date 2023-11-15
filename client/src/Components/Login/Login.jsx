@@ -1,4 +1,4 @@
-import React, { useState,useContext } from "react";
+import React, { useState, useContext } from "react";
 import "./Login.css";
 import UserContext from "../../Context/user/UserContext";
 import { Flip, toast, ToastContainer } from "react-toastify";
@@ -7,15 +7,10 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
     const [credentials, setCredentials] = useState({ email: "", password: "" });
-    const context = useContext(UserContext);
-    const { getUser } = context;
+    const userContext = useContext(UserContext);
+    const { setUser, userData } = userContext;
 
     const navigate = useNavigate();
-
-    const getUserData = async () => {
-        const {username}=await getUser();
-        return username;
-    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -24,7 +19,7 @@ const Login = () => {
             toast.warn("Enter a valid Email!", {
                 position: "top-right",
                 autoClose: 3000,
-                transition:Flip,
+                transition: Flip,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -32,9 +27,9 @@ const Login = () => {
                 progress: undefined,
                 theme: "colored",
             });
-            setTimeout(()=>{
-                setCredentials({email:"",password:""});
-            },3700);
+            setTimeout(() => {
+                setCredentials({ email: "", password: "" });
+            }, 3700);
             return;
         }
 
@@ -49,7 +44,8 @@ const Login = () => {
         const json = await response.json();
         if (json.success) {
             localStorage.setItem("token", json.authToken);
-            toast.success(`Welcome, ${await getUserData()}!`, {
+            await setUser();
+            toast.success(`Welcome, ${userData.username}!`, {
                 position: "top-right",
                 autoClose: 3000,
                 transition: Flip,
@@ -63,7 +59,7 @@ const Login = () => {
             setTimeout(() => {
                 navigate("/");
             }, 3700);
-            
+
         } else {
             toast.error("Please Enter Valid Credentials Or Try Again Later!", {
                 position: "top-right",

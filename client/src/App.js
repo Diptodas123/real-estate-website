@@ -11,28 +11,45 @@ import About from './Components/About/About';
 import PostProperty from './Components/PostProperty/PostProperty';
 import AdminLogin from './Components/Admin/AdminLogin/AdminLogin';
 import Dashboard from './Components/Admin/Dashboard/Dashboard';
-import UserState from './Context/user/UserState';
+import { useContext, useEffect } from 'react';
+import UserContext from './Context/user/UserContext';
 
 function App() {
+
+  const userContext = useContext(UserContext);
+  const { setUser } = userContext;
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        await setUser();
+      } catch (error) {
+        console.log("Error while fetching userData: ", error);
+      }
+    }
+    if (localStorage.getItem('token')) {
+      fetchUser();
+    }
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <>
-      <UserState>
-        <BrowserRouter>
-          <Routes>
-            <Route exact path='/' element=<Home />></Route>
-            <Route exact path='/buy' element=<Buy />></Route>
-            <Route exact path='/rent' element=<Rent />></Route>
-            <Route exact path='/login' element=<Login />></Route>
-            <Route exact path='/signup' element=<Signup />></Route>
-            <Route exact path='/listproperty' element=<Form />></Route>
-            <Route exact path='/contact' element=<Contact />></Route>
-            <Route exact path='/about' element=<About />></Route>
-            <Route exact path='/postproperty' element=<PostProperty />></Route>
-            <Route exact path='/adminlogin' element=<AdminLogin />></Route>
-            <Route exact path='/adminhome' element=<Dashboard />></Route>
-          </Routes>
-        </BrowserRouter>
-      </UserState>
+      <BrowserRouter>
+        <Routes>
+          <Route exact path='/' element=<Home />></Route>
+          <Route exact path='/buy' element=<Buy />></Route>
+          <Route exact path='/rent' element=<Rent />></Route>
+          <Route exact path='/login' element=<Login />></Route>
+          <Route exact path='/signup' element=<Signup />></Route>
+          <Route exact path='/listproperty' element=<Form />></Route>
+          <Route exact path='/contact' element=<Contact />></Route>
+          <Route exact path='/about' element=<About />></Route>
+          <Route exact path='/postproperty' element=<PostProperty />></Route>
+          <Route exact path='/adminlogin' element=<AdminLogin />></Route>
+          <Route exact path='/adminhome' element=<Dashboard />></Route>
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
