@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 import { getUser } from "../controller/user.controller.js";
 import User from "../schema/userSchema.js";
 import fetchUser from "../middleware/fetchUser.js";
+import { getAllUsers } from "../controller/auth.controller.js";
 
 const router = express.Router();
 
@@ -13,7 +14,7 @@ router.post("/createuser", [
     body('username', "Enter a valid username").exists(),
     body('email', "Enter a valid email").isEmail(),
     body('password', "Password must be at least 8 characters").isLength({ min: 8 }),
-    body('phone', "Enter a valid phone number").isInt().isLength({ min: 10 }),
+    body('phone', "Enter a valid phone number").isLength({ min: 10 }),
 ], async (req, res) => {
 
     const error = validationResult(req);
@@ -94,7 +95,10 @@ router.post("/login", [
     }
 });
 
-
+//Route 3:get request to get the details of a user
 router.get("/getuser", fetchUser, getUser);
+
+//Route 4: get request to get all users for admin
+router.get("/getallusers", getAllUsers);
 
 export default router;
