@@ -54,9 +54,9 @@ const Signup = () => {
                 progress: undefined,
                 theme: "colored",
             });
-            // setTimeout(() => {
-            //     navigate("/");
-            // }, 3700);
+            setTimeout(() => {
+                navigate("/");
+            }, 3700);
         } else {
             toast.error(json.errors[0].msg, {
                 position: "top-center",
