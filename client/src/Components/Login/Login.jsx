@@ -4,6 +4,7 @@ import UserContext from "../../Context/user/UserContext";
 import { Flip, toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link, useNavigate } from "react-router-dom";
+import OAuth from "../OAuth";
 
 const Login = () => {
     const [credentials, setCredentials] = useState({ email: "", password: "" });
@@ -109,17 +110,22 @@ const Login = () => {
                                 </div>
                                 <div className="row">
                                     <div className="text-center mt-4 col-12">
-                                        <button type="submit" className="btn btn-purple submit-button">Submit</button>
+                                        <button className="btn btn-purple submit-button">Submit</button>
                                     </div>
                                 </div>
-                                <hr className="text-primary"></hr>
                                 <div className="row">
-                                    <div className="col-12 footer-text mt-3 d-flex align-conent-center justify-content-center">
-                                        <label htmlFor="exampleInputEmail1" className="text">Don't have an account?</label>
-                                        <Link to="/signup" className="ml-2 text" id={"sign-up-btn"} style={{ textDecoration: "underline", color: "#7a4bcf" }}>Sign up</Link>
+                                    <div className="text-center mt-3 col-12">
+                                        <OAuth />
                                     </div>
                                 </div>
                             </form>
+                            <hr />
+                            <div className="row">
+                                <div className="col-12 footer-text mt-3 d-flex align-conent-center justify-content-center">
+                                    <label htmlFor="exampleInputEmail1" className="text">Don't have an account?</label>
+                                    <Link to="/signup" className="ml-2 text" id={"sign-up-btn"} style={{ textDecoration: "underline", color: "#7a4bcf" }}>Sign up</Link>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

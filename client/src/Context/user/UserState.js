@@ -2,7 +2,7 @@ import { useState } from "react";
 import UserContext from "./UserContext.js";
 
 const UserState = (props) => {
-    const [userData, setUserData] = useState({ username: "", email: "", phone: "" });
+    const [userData, setUserData] = useState({ username: "", email: "", phone: "", photo: "" });
 
     const setUser = async () => {
         const response = await fetch("http://localhost:8000/api/auth/getuser", {
@@ -14,7 +14,7 @@ const UserState = (props) => {
         });
 
         const json = await response.json();
-        setUserData({ username: json.username, email: json.email, phone: json.phone });
+        setUserData({ username: json.username, email: json.email, phone: json.phone, photo: json.photo });
     }
 
     return (

@@ -95,10 +95,42 @@ router.post("/login", [
     }
 });
 
-//Route 3:get request to get the details of a user
+//Route 2:post request to create user using firebase's google authentication
+router.post("/google", async (req, res) => {
+    try {
+        let user = await User.findOne({ email: req.body.email });
+        if (user) {
+            const authToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
+            return res.status(200).json({ success: true, authToken, msg: `Welcome Back, ${user.username}!` });
+        } else {
+            const generatedPassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
+            const salt = await bcrypt.genSalt(10);
+            const securedPassword = await bcrypt.hash(generatedPassword, salt);
+
+            user = new User({
+                username: req.body.username.split(" ").join("").toLowerCase() + Math.random().toString(36).slice(-4),
+                email: req.body.email,
+                password: securedPassword,
+                phone: Math.floor(Math.random() * 9000000000) + 1000000000,
+                photo: req.body.photo
+            });
+            console.log(user);
+            await user.save();
+
+            const authToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
+            return res.status(200).json({ success: true, authToken, msg: "Account Created Successfully!" });
+        }
+
+    } catch (error) {
+        console.log(error.message);
+        return res.status(500).json({ msg: "Internal Server error", error });
+    }
+})
+
+//Route 4:get request to get the details of a user
 router.get("/getuser", fetchUser, getUser);
 
-//Route 4: get request to get all users for admin
+//Route 5: get request to get all users for admin
 router.get("/getallusers", getAllUsers);
 
 export default router;
