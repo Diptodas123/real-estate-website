@@ -2,10 +2,7 @@ import express from "express";
 import { body, validationResult } from "express-validator";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { getUser } from "../controller/user.controller.js";
 import User from "../schema/userSchema.js";
-import fetchUser from "../middleware/fetchUser.js";
-import { getAllUsers } from "../controller/auth.controller.js";
 
 const router = express.Router();
 
@@ -126,11 +123,5 @@ router.post("/google", async (req, res) => {
         return res.status(500).json({ msg: "Internal Server error", error });
     }
 })
-
-//Route 4:get request to get the details of a user
-router.get("/getuser", fetchUser, getUser);
-
-//Route 5: get request to get all users for admin
-router.get("/getallusers", getAllUsers);
 
 export default router;

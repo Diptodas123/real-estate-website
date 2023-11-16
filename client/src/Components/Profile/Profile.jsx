@@ -3,15 +3,17 @@ import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/
 import Menu from '../Menu/Menu';
 import "./Profile.css";
 import Footer from '../Footer/Footer';
+import { Flip, toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import UserContext from '../../Context/user/UserContext';
 import { useNavigate } from 'react-router-dom';
 import { app } from '../../firebase';
 
 const Profile = () => {
     const userContext = useContext(UserContext);
-    const { userData, setUserData } = userContext;
+    const { userData, setUserData, setUser } = userContext;
 
-    const [credentials, setCredentials] = useState({ userName: "", userEmail: "", userPhn: "", userPassword: "" });
+    const [credentials, setCredentials] = useState({ userName: "", userEmail: "", userPhn: "", userPassword: "", userPhoto: "" });
     const [file, setFile] = useState(undefined);
     const [filePercentage, setFilePercentage] = useState(0);
     const [fileUploadError, setFileUploadError] = useState(false);
@@ -19,7 +21,7 @@ const Profile = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        setCredentials(({ userName: userData.username, userEmail: userData.email, userPhn: userData.phone }));
+        setCredentials(({ userName: userData.username, userEmail: userData.email, userPhn: userData.phone, userPhoto: userData.photo }));
         if (file) {
             handleFileUpload(file);
         }
@@ -43,19 +45,104 @@ const Profile = () => {
         }, () => {
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                 setFormData({ ...formData, photo: downloadURL });
+                setCredentials({ userPhoto: formData.photo });
             })
         });
     }
 
     const onChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value })
         setCredentials({ ...credentials, [e.target.name]: e.target.value });
     }
-    const handleProfileUpdate = () => {
 
+    const handleProfileUpdate = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await fetch(`http://localhost:8000/api/user/update/${userData.id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": localStorage.getItem("token")
+                },
+                body: JSON.stringify({ username: credentials.userName, email: credentials.userEmail, phone: credentials.userPhn, password: credentials.userPassword, photo: formData.photo })
+            });
+
+            const json = await response.json();
+            console.log(json);
+            console.log(formData);
+            if (json.success) {
+                await setUser();
+                toast.success(json.msg, {
+                    position: "top-right",
+                    autoClose: 3000,
+                    transition: Flip,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+            } else {
+                return toast.error(json.msg, {
+                    position: "top-right",
+                    autoClose: 3000,
+                    transition: Flip,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
-    const handleProfileDelete = () => {
+    const handleProfileDelete = async () => {
+        try {
+            const response = await fetch(`http://localhost:8000/api/user/delete/${userData.id}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": localStorage.getItem("token")
+                },
+            });
 
+            const json = await response.json();
+            if (json.success) {
+                localStorage.removeItem("token");
+                setUserData({ id: "", username: "", email: "", phone: "", photo: "" });
+                toast.warn(json.msg, {
+                    position: "top-right",
+                    autoClose: 3000,
+                    transition: Flip,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+                navigate("/login")
+            } else {
+                return toast.warn(json.msg, {
+                    position: "top-right",
+                    autoClose: 3000,
+                    transition: Flip,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     const handleLogOut = async () => {
@@ -77,6 +164,7 @@ const Profile = () => {
                                 type='file'
                                 ref={fileRef}
                                 hidden
+                                name='photo'
                                 onChange={(e) => setFile(e.target.files[0])}
                             />
                             <img src={formData.photo || userData.photo} alt='Profile-Avatar' onClick={() => fileRef.current.click()} />
@@ -84,7 +172,7 @@ const Profile = () => {
                     </div>
                     <div className="row">
                         <div className='profile-group col-12'>
-                            <p className='mt-1'>
+                            <p>
                                 {
                                     fileUploadError ? (
                                         <span className='text-danger'>Error While Uploading the Image</span>
@@ -101,22 +189,22 @@ const Profile = () => {
                     </div>
                     <div className="row">
                         <div className="profile-group col-12">
-                            <input type="text" className="form-control user-mandatory-fields" name="userName" id="userName" placeholder="Username" onChange={onChange} required value={credentials.userName} />
+                            <input type="text" className="form-control user-mandatory-fields" name="userName" id="userName" placeholder="Username" onChange={onChange} value={credentials.userName} />
                         </div>
                     </div>
                     <div className="row">
                         <div className="profile-group col-12">
-                            <input type="email" className="form-control user-mandatory-fields" name="userEmail" id="userEmail" placeholder="Email" onChange={onChange} required value={credentials.userEmail} />
+                            <input type="email" className="form-control user-mandatory-fields" name="userEmail" id="userEmail" placeholder="Email" onChange={onChange} value={credentials.userEmail} />
                         </div>
                     </div>
                     <div className="row">
                         <div className="profile-group col-12">
-                            <input type="number" className="form-control user-mandatory-fields" name="userPhn" id="userPhn" placeholder="Phone" onChange={onChange} required value={credentials.userPhn} />
+                            <input type="number" className="form-control user-mandatory-fields" name="userPhn" id="userPhn" placeholder="Phone" onChange={onChange} value={credentials.userPhn} />
                         </div>
                     </div>
                     <div className="row">
                         <div className="profile-group col-12">
-                            <input type="password" className="form-control user-mandatory-fields" name="userPassword" id="userPassword" placeholder="Password" onChange={onChange} required value={credentials.userPassword} />
+                            <input type="password" className="form-control user-mandatory-fields" name="userPassword" id="userPassword" placeholder="Password" onChange={onChange} value={credentials.userPassword} />
                         </div>
                     </div>
                     <div className="row">
@@ -126,12 +214,13 @@ const Profile = () => {
                     </div>
                     <div className="row" style={{ marginLeft: "19%", marginRight: "19%" }}>
                         <div className="d-flex justify-content-between col-12">
-                            <span className="btn btn-purple" onClick={handleProfileDelete}>Delete account</span>
-                            <span onClick={handleLogOut} className="btn btn-purple">Log out</span>
+                            <button className="btn btn-danger" onClick={handleProfileDelete}>Delete account</button>
+                            <button onClick={handleLogOut} className="btn btn-purple">Log out</button>
                         </div>
                     </div>
                 </form>
             </div>
+            <ToastContainer />
             <Footer />
         </>
     )

@@ -1,18 +1,16 @@
 import React, { useContext } from "react";
 import "./Menu.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import UserContext from "../../Context/user/UserContext";
 const Menu = () => {
 
     const userContext = useContext(UserContext);
     const { userData } = userContext;
 
-    const navigate = useNavigate();
-
-    const handleLogOut = () => {
-        localStorage.removeItem("token");
-        navigate("/login");
-    }
+    // const handleLogOut = () => {
+    //     localStorage.removeItem("token");
+    //     navigate("/login");
+    // }
 
     return (
         <>

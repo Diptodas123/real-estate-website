@@ -49,7 +49,7 @@ function App() {
           <Route exact path='/postproperty' element=<PostProperty />></Route>
           <Route exact path='/adminlogin' element=<AdminLogin />></Route>
           <Route exact path='/adminhome' element=<Dashboard />></Route>
-          <Route exact path='/profile' element={(localStorage.getItem("token")) ? <Profile /> : <Navigate to="/login" />}></Route>
+          <Route exact path='/profile' element={(localStorage.getItem("token")) ? <Profile /> : <Navigate to="/" />}></Route>
         </Routes>
       </BrowserRouter>
     </>
