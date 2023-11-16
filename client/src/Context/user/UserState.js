@@ -18,7 +18,7 @@ const UserState = (props) => {
     }
 
     return (
-        <UserContext.Provider value={{ setUser, userData }}>
+        <UserContext.Provider value={{ setUser, userData,setUserData }}>
             {props.children}
         </UserContext.Provider>
     );
