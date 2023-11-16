@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Home from "./Components/Home/Home";
 import Buy from "./Components/Buy/Buy";
 import Rent from "./Components/Rent/Rent";
@@ -13,6 +13,7 @@ import AdminLogin from './Components/Admin/AdminLogin/AdminLogin';
 import Dashboard from './Components/Admin/Dashboard/Dashboard';
 import { useContext, useEffect } from 'react';
 import UserContext from './Context/user/UserContext';
+import Profile from './Components/Profile/Profile';
 
 function App() {
 
@@ -40,14 +41,15 @@ function App() {
           <Route exact path='/' element=<Home />></Route>
           <Route exact path='/buy' element=<Buy />></Route>
           <Route exact path='/rent' element=<Rent />></Route>
-          <Route exact path='/login' element=<Login />></Route>
-          <Route exact path='/signup' element=<Signup />></Route>
-          <Route exact path='/listproperty' element=<Form />></Route>
+          <Route exact path='/login' element={!(localStorage.getItem("token")) ? <Login /> : <Navigate to="/" />}></Route>
+          <Route exact path='/signup' element={!(localStorage.getItem("token")) ? <Signup /> : <Navigate to="/" />}></Route>
+          <Route exact path='/listproperty' element={(localStorage.getItem("token")) ? <Form /> : <Navigate to="/login" />}></Route>
           <Route exact path='/contact' element=<Contact />></Route>
           <Route exact path='/about' element=<About />></Route>
           <Route exact path='/postproperty' element=<PostProperty />></Route>
           <Route exact path='/adminlogin' element=<AdminLogin />></Route>
           <Route exact path='/adminhome' element=<Dashboard />></Route>
+          <Route exact path='/profile' element={(localStorage.getItem("token")) ? <Profile /> : <Navigate to="/login" />}></Route>
         </Routes>
       </BrowserRouter>
     </>
