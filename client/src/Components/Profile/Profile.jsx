@@ -101,7 +101,8 @@ const Profile = () => {
         }
     }
 
-    const handleProfileDelete = async () => {
+    const handleProfileDelete = async (e) => {
+        e.preventDefault();
         try {
             const response = await fetch(`http://localhost:8000/api/user/delete/${userData.id}`, {
                 method: "DELETE",
@@ -112,9 +113,9 @@ const Profile = () => {
             });
 
             const json = await response.json();
+            console.log(json);
             if (json.success) {
-                localStorage.removeItem("token");
-                setUserData({ id: "", username: "", email: "", phone: "", photo: "" });
+                await setUserData({ id: "", username: "", email: "", phone: "", photo: "" });
                 toast.warn(json.msg, {
                     position: "top-right",
                     autoClose: 3000,
@@ -126,7 +127,9 @@ const Profile = () => {
                     progress: undefined,
                     theme: "colored",
                 });
-                navigate("/login")
+                setTimeout(()=>{
+                    localStorage.removeItem("token");
+                },3700);
             } else {
                 return toast.warn(json.msg, {
                     position: "top-right",
@@ -145,9 +148,10 @@ const Profile = () => {
         }
     }
 
-    const handleLogOut = async () => {
+    const handleLogOut = async (e) => {
+        e.preventDefault();
         localStorage.removeItem("token");
-        await setUserData({ username: "", email: "", phone: "", photo: "" });
+        await setUserData({ id: "", username: "", email: "", phone: "", photo: "" });
         navigate("/login");
     }
 

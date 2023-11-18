@@ -84,7 +84,7 @@ const Menu = () => {
                         </li>
                     </ul>
                     {
-                        userData.username === "" ?
+                        !localStorage.getItem("token") ?
                             <div className="d-flex justify-content-center">
                                 <Link to="/login">
                                     <button type="button" className="btn btn-outline-purple">
@@ -99,9 +99,9 @@ const Menu = () => {
                             </div>
                             :
                             <>
-                            
+
                                 <Link to={"/profile"}>
-                                    <img src={userData.photo} alt="profile" className="profile-avatar mx-4 nav-item"/>
+                                    <img src={userData.photo} alt="profile" className="profile-avatar mx-4 nav-item" style={{ width: "50px" }} />
                                 </Link>
                                 {/* <button type="button" className="btn btn-outline-purple mx-3" onClick={handleLogOut}>
                                     <i className="fa-solid fa-right-from-bracket"></i> Log Out

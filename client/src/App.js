@@ -14,6 +14,7 @@ import Dashboard from './Components/Admin/Dashboard/Dashboard';
 import { useContext, useEffect } from 'react';
 import UserContext from './Context/user/UserContext';
 import Profile from './Components/Profile/Profile';
+import AdminUsers from './Components/Admin/AdminUsers/AdminUsers';
 
 function App() {
 
@@ -48,6 +49,7 @@ function App() {
           <Route exact path='/about' element=<About />></Route>
           <Route exact path='/postproperty' element=<PostProperty />></Route>
           <Route exact path='/adminlogin' element=<AdminLogin />></Route>
+          <Route exact path='/adminuser' element=<AdminUsers />></Route>
           <Route exact path='/adminhome' element=<Dashboard />></Route>
           <Route exact path='/profile' element={(localStorage.getItem("token")) ? <Profile /> : <Navigate to="/" />}></Route>
         </Routes>
