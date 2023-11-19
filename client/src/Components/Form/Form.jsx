@@ -2,9 +2,12 @@ import React, { useState, useEffect, useContext } from "react";
 import './Form.css';
 import Menu from "../Menu/Menu";
 import Footer from "../Footer/Footer";
+import { Flip, toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import UserContext from "../../Context/user/UserContext";
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
 import { app } from "../../firebase";
+import { useNavigate } from "react-router-dom";
 
 const Form = () => {
     const userContext = useContext(UserContext);
@@ -13,6 +16,7 @@ const Form = () => {
     const [files, setFiles] = useState([]);
     const [imageUploadError, setImageUploadError] = useState(false);
     const [imageUploading, setImageUploading] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const [formData, setFormData] = useState({
         ownerName: '',
@@ -32,7 +36,7 @@ const Form = () => {
         bedrooms: "",
         parking: "",
         furnished: "",
-        advertisementType: '',
+        advertisementType: "sale",
         availability: "",
         propertyType: "",
     });
@@ -48,6 +52,7 @@ const Form = () => {
 
     const onValueChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
+        console.log(formData);
     }
 
     const storeImage = async (file) => {
@@ -103,9 +108,53 @@ const Form = () => {
         }
     }
 
+    const navigate=useNavigate();
+
     const submitForm = async (e) => {
         e.preventDefault();
-        console.log(formData);
+        try {
+            setLoading(true);
+            const response = await fetch("http://localhost:8000/api/property/postproperty", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": localStorage.getItem("token")
+                },
+                body: JSON.stringify(formData)
+            });
+            const json = await response.json();
+            setLoading(false);
+            if (json.success) {
+                toast.success(json.msg, {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    transition: Flip,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+                setTimeout(()=>{
+                    navigate(`/property/${json.property._id}`);
+                },3700);
+            } else {
+                toast.error(json.error[0].msg, {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    transition: Flip,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+            }
+        } catch (error) {
+            console.log("Error While property posting", error.message);
+        }
     }
 
     return (
@@ -146,6 +195,16 @@ const Form = () => {
                         <div className="row">
                             <div className="col-12 col-md-4 form-filed">
                                 <div className="form-group">
+                                    <label htmlFor="advertisementType ">Advertisement Type <span style={{ color: 'red' }}>*</span></label>
+                                    <select required className="form-control" name="advertisementType" onChange={onValueChange} id="advertisementType">
+                                        <option disabled selected value={''}>--Select Advertisement Type--</option>
+                                        <option value={'rent'}>On Rent</option>
+                                        <option value={'sale'}>On Sale</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div className="col-12 col-md-4 form-filed">
+                                <div className="form-group">
                                     <label htmlFor="propertyName">Property Name <span style={{ color: 'red' }}>*</span></label>
                                     <input type="text" required name="propertyName" value={formData.propertyName} onChange={onValueChange} className="form-control" id="propertyName" placeholder="Enter Property Name" />
                                 </div>
@@ -182,8 +241,8 @@ const Form = () => {
                             </div>
                             <div className="col-12 col-md-4 form-filed">
                                 <div className="form-group">
-                                    <label htmlFor="price">Price <span style={{ color: 'red' }}>*</span></label>
-                                    <input type="number" required name="price" value={formData.price} onChange={onValueChange} className="form-control" id="price" placeholder="Enter Property Price" />
+                                    <label htmlFor="price">{formData.advertisementType === "sale" ? "Price(₹)" : "Rent/month(₹)"}<span style={{ color: 'red' }}>*</span></label>
+                                    <input type="number" required name="price" value={formData.price} onChange={onValueChange} className="form-control" id="price" placeholder={`Enter Property `.concat(formData.advertisementType === "sale" ? "Price" : "Rent Per Month")} />
                                 </div>
                             </div>
 
@@ -192,7 +251,7 @@ const Form = () => {
                                     <label htmlFor="imageUrls">Property Photos (max 6 images and 2MB each) <span style={{ color: 'red' }}>*</span></label>
                                     <div className="d-flex">
                                         <input onChange={(e) => setFiles(e.target.files)} accept="image/*" multiple type="file" name="imageUrls[]" className="form-control" id="imageUrls" />
-                                        <button onClick={handleImageSubmit} type="button" className="btn btn-outline-success mx-3">{imageUploading?"Updating...":"Update"}</button>
+                                        <button onClick={handleImageSubmit} type="button" className="btn btn-outline-success mx-3" disabled={imageUploading}>{imageUploading ? "Uploading..." : "Upload"}</button>
                                     </div>
                                     <p className="text-danger">{imageUploadError && imageUploadError}</p>
                                 </div>
@@ -257,16 +316,6 @@ const Form = () => {
                         <div className="row">
                             <div className="col-12 col-md-4 form-filed">
                                 <div className="form-group">
-                                    <label htmlFor="advertisementType ">Advertisement Type <span style={{ color: 'red' }}>*</span></label>
-                                    <select required className="form-control" name="advertisementType" onChange={onValueChange} id="advertisementType">
-                                        <option disabled selected value={''}>--Select Advertisement Type--</option>
-                                        <option value={'rent'}>On Rent</option>
-                                        <option value={'sale'}>On Sale</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div className="col-12 col-md-4 form-filed">
-                                <div className="form-group">
                                     <label htmlFor="furnished">Furnished <span style={{ color: 'red' }}>*</span></label>
                                     <select required className="form-control" name="furnished" onChange={onValueChange} id="furnished">
                                         <option disabled selected value={''}>--Select Furnishing--</option>
@@ -289,8 +338,8 @@ const Form = () => {
                             {/* Add Another field : PropertyType like------- flat,personal property,bungalow etc. */}
                             <div className="col-12 col-md-4 form-filed">
                                 <div className="form-group">
-                                    <label htmlFor="propertyTpe">Property Type <span style={{ color: 'red' }}>*</span></label>
-                                    <select required className="form-control" name="propertyTpe" onChange={onValueChange} id="propertyTpe">
+                                    <label htmlFor="propertyType">Property Type <span style={{ color: 'red' }}>*</span></label>
+                                    <select required className="form-control" name="propertyType" onChange={onValueChange} id="propertyType">
                                         <option disabled selected value={''}>--Select Property Type--</option>
                                         <option value={'flat'}>Flat</option>
                                         <option value={'personal'}>personal property</option>
@@ -305,13 +354,14 @@ const Form = () => {
                         <div className="row my-2">
                             <div className="col-12">
                                 <div className="d-flex align-items-center justify-content-center">
-                                    <button type="submit" className="btn btn-purple">Submit</button>
+                                    <button type="submit" className="btn btn-purple" disabled={loading || imageUploading}>{loading ? "Loading..." : "Submit"}</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
+            <ToastContainer />
             <Footer />
         </>
     )

@@ -5,7 +5,27 @@ import Property from "../schema/propertySchema.js";
 const router = express.Router();
 
 //ROUTE 1:POST request to post a property. Login required
-router.post("/postproperty", fetchUser, async (req, res) => {
+router.post("/postproperty", fetchUser, [
+    body('ownerEmail', "Enter a valid email").isEmail(),
+    body('ownerPhn', 'Enter a valid Phone number').isLength({ min: 10 }),
+    body('propertyName', "Property Name Can't Be Empty").exists(),
+    body('propertyAge', "Property Age Can only be Inetger Value").isInt(),
+    body('imageUrls', "Please upload at least 1 image & at most 6 images").isArray({ min: 1, max: 6 }),
+    body('street', "Street field Can't Be Empty").exists(),
+    body('city', "City Field Can't Be Empty").exists(),
+    body('state', "State Field Can't Be Empty").exists(),
+    body('country', "Country Field Can't Be Empty").exists(),
+    body('pincode', "Pincode should be of 6 digits").isLength({ min: 6, max: 6 }),
+    body('price', "Price Field can't be empty").isNumeric(),
+    body('description', "Description Field can't be empty").notEmpty(),
+    body('bathrooms', "No. of Bathrooms can only be Integer Value").isInt(),
+    body('bedrooms', "No. of Bedrooms can only be Integer Value").isInt(),
+    body('parking',"Parking Field can only contain Boolean Value").isBoolean(),
+    body('furnished',"Furnished Field can only contain Boolean Value").isBoolean(),
+    body('advertisementType',"Advertisement Type Can't be Empty").notEmpty(),
+    body('availability',"Availability Can't be Blank").notEmpty(),
+    body('propertyType',"Property Type Can't be Blank").notEmpty(),
+], async (req, res) => {
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
