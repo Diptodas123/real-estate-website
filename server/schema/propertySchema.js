@@ -20,15 +20,39 @@ const propertySchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    description: {
+    propertyAge: {
+        type: Number,
+        default: undefined
+    },
+    imageUrls: {
+        type: Array,
+        required: true,
+    },
+    street: {
         type: String,
+        required: true
+    },
+    city: {
+        type: String,
+        required: true
+    },
+    state: {
+        type: String,
+        required: true
+    },
+    country: {
+        type: String,
+        required: true
+    },
+    pincode: {
+        type: Number,
         required: true
     },
     price: {
         type: Number,
         required: true
     },
-    addrress: {
+    description: {
         type: String,
         required: true
     },
@@ -40,25 +64,17 @@ const propertySchema = mongoose.Schema({
         type: Number,
         required: true
     },
-    furnished: {
-        type: Boolean,
-        required: true
-    },
     parking: {
         type: Boolean,
         required: true
     },
-    type: {
+    furnished: {
+        type: Boolean,
+        required: true
+    },
+    advertisementType: {
         type: String,
         required: true
-    },
-    imageUrls: {
-        type: Array,
-        required: true
-    },
-    propertyAge: {
-        type: Number,
-        default: undefined
     },
     availability: {
         type: String,

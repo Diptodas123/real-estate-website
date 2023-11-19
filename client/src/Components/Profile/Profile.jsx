@@ -218,8 +218,8 @@ const Profile = () => {
                     </div>
                     <div className="row" style={{ marginLeft: "19%", marginRight: "19%" }}>
                         <div className="d-flex justify-content-between col-12">
-                            <button className="btn btn-danger" onClick={handleProfileDelete}>Delete account</button>
-                            <button onClick={handleLogOut} className="btn btn-purple">Log out</button>
+                            <button type='button' className="btn btn-danger" onClick={handleProfileDelete}>Delete account</button>
+                            <button type='button' onClick={handleLogOut} className="btn btn-purple">Log out</button>
                         </div>
                     </div>
                 </form>
