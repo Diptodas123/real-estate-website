@@ -6,7 +6,7 @@ import Footer from '../Footer/Footer';
 import { Flip, toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import UserContext from '../../Context/user/UserContext';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { app } from '../../firebase';
 
 const Profile = () => {
@@ -26,7 +26,7 @@ const Profile = () => {
             handleFileUpload(file);
         }
         // eslint-disable-next-line
-    }, [, file]);
+    }, [userData, file]);
 
     const navigate = useNavigate();
     const fileRef = useRef(null);
@@ -127,9 +127,9 @@ const Profile = () => {
                     progress: undefined,
                     theme: "colored",
                 });
-                setTimeout(()=>{
+                setTimeout(() => {
                     localStorage.removeItem("token");
-                },3700);
+                }, 3700);
             } else {
                 return toast.warn(json.msg, {
                     position: "top-right",
@@ -219,6 +219,7 @@ const Profile = () => {
                     <div className="row" style={{ marginLeft: "19%", marginRight: "19%" }}>
                         <div className="d-flex justify-content-between col-12">
                             <button type='button' className="btn btn-danger" onClick={handleProfileDelete}>Delete account</button>
+                            <Link to={"/myproperty"}><button type='button' className="btn btn-purple">Show Properties</button></Link>
                             <button type='button' onClick={handleLogOut} className="btn btn-purple">Log out</button>
                         </div>
                     </div>

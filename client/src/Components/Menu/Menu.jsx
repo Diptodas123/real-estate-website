@@ -16,7 +16,7 @@ const Menu = () => {
         <>
             <nav className="navbar navbar-expand-lg bg-light navbar-main">
                 <Link className="navbar-brand" to="/">
-                    <img src="img/brand-logo.jpg" id="icon" className="mb-1" alt="img/brand-logo.jpg" />
+                    <img src="https://firebasestorage.googleapis.com/v0/b/ghardekho-bd550.appspot.com/o/brand-logo.jpg?alt=media&token=e901988f-af26-4c21-9253-487c4e0b0453" id="icon" className="mb-1" alt="img/brand-logo.jpg" />
                     <strong className="brand-name"><span className="text-purple">Ghar</span>Dekho</strong>
                 </Link>
                 <button

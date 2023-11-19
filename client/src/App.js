@@ -15,6 +15,8 @@ import { useContext, useEffect } from 'react';
 import UserContext from './Context/user/UserContext';
 import Profile from './Components/Profile/Profile';
 import AdminUsers from './Components/Admin/AdminUsers/AdminUsers';
+import MyProperty from './Components/Profile/MyProperty';
+import UpdateProperty from './Components/UpdateProperty/UpdateProperty';
 
 function App() {
 
@@ -52,6 +54,8 @@ function App() {
           <Route exact path='/adminuser' element=<AdminUsers />></Route>
           <Route exact path='/adminhome' element=<Dashboard />></Route>
           <Route exact path='/profile' element={(localStorage.getItem("token")) ? <Profile /> : <Navigate to="/" />}></Route>
+          <Route exact path='/myproperty' element={(localStorage.getItem("token")) ? <MyProperty /> : <Navigate to="/" />}></Route>
+          <Route exact path='/updateproperty/:propertyid' element={(localStorage.getItem("token")) ? <UpdateProperty /> : <Navigate to="/" />}></Route>
         </Routes>
       </BrowserRouter>
     </>

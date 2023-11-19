@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
 const propertySchema = mongoose.Schema({
-    urerRef: {
+    userRef: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "user",
+        required:true
     },
     ownerName: {
         type: String,

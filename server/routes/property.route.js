@@ -2,6 +2,7 @@ import express from "express";
 import { body, validationResult } from "express-validator";
 import fetchUser from "../middleware/fetchUser.js";
 import Property from "../schema/propertySchema.js";
+import { deleteProperty, getMyProperty,updateProperty,getProperty } from "../controller/property.controller.js";
 const router = express.Router();
 
 //ROUTE 1:POST request to post a property. Login required
@@ -62,5 +63,17 @@ router.post("/postproperty", fetchUser, [
         return res.status(500).send("Internal Server error");
     }
 });
+
+//ROUTE 2:GET request to get posted properties of a user. Login required
+router.get("/getmyproperty/:id",fetchUser,getMyProperty);
+
+//ROUTE 3:GET request to get posted properties. Login Not required
+router.get("/getproperty/:id",getProperty);
+
+//ROUTE 4:DELETE request to delete an existing property. Login required
+router.delete("/deleteproperty/:id",fetchUser,deleteProperty);
+
+//ROUTE 5:PUT request to update an existing property. Login required
+router.put("/updateproperty/:id",fetchUser,updateProperty);
 
 export default router;
