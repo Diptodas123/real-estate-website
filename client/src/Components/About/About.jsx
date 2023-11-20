@@ -52,7 +52,7 @@ const AboutUs = () => {
                             Five diverse students found themselves united by an ambitious group project - a college-assigned task to create a cutting-edge real estate website. Late nights meetings became brainstorming sessions, laughter echoing amidst the textbooks. As the deadline approached, their dedication paid off. The website seamlessly integrated property listings, financial tools, and a user-friendly interface. Presented to their professor, the project not only earned them accolades but sparked conversations about potential real-world applications. The students, once strangers, forged lasting bonds through this collaborative venture, proving that academic challenges could transform into opportunities for both learning and lifelong friendships.</p>
                         </div>
                         <div className="about-us-image3-right">
-                            <img src="img/about-us-image3.jpg" alt="about-us-image" className="img3-about-uss" />
+                            <img src="img/about-us-image3.jpg" alt="about-us" className="img3-about-uss" />
                         </div>
                     </div>
                 </div>

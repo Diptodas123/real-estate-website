@@ -78,6 +78,7 @@ const UpdatedProperty = () => {
             }
         }
         propertyData();
+        // eslint-disable-next-line
     }, []);
 
     const onValueChange = (e) => {

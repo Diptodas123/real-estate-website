@@ -55,6 +55,7 @@ const PropertyDescription = () => {
             }
         }
         fetchPropertyData();
+        // eslint-disable-next-line
     }, []);
 
     useEffect(() => {

@@ -76,7 +76,7 @@ router.get("/getowneravatar/:id", getOwnerAvatar);
 //ROUTE 5:DELETE request to delete an existing property. Login required
 router.delete("/deleteproperty/:id", fetchUser, deleteProperty);
 
-//ROUTE 6:PUT request to update an existing property. Login required
+//ROUTE 5:PUT request to update an existing property. Login required
 router.put("/updateproperty/:id", fetchUser, updateProperty);
 
 export default router;
