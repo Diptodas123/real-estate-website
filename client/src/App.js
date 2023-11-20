@@ -17,6 +17,9 @@ import AdminUsers from './Components/Admin/AdminUsers/AdminUsers';
 import MyProperty from './Components/Profile/MyProperty';
 import UpdateProperty from './Components/UpdateProperty/UpdateProperty';
 import PropertyDescription from './Components/PropertyDescription/PropertyDescription';
+import Blogs from './Components/Blogs/Blogs';
+import BlogPost from './Components/Blogs/BlogPost';
+import AdminBlogPage from './Components/Admin/AdminPages/AdminBlogPage';
 
 function App() {
 
@@ -56,6 +59,9 @@ function App() {
           <Route exact path='/myproperty' element={(localStorage.getItem("token")) ? <MyProperty /> : <Navigate to="/" />}></Route>
           <Route exact path='/updateproperty/:propertyid' element={(localStorage.getItem("token")) ? <UpdateProperty /> : <Navigate to="/" />}></Route>
           <Route exact path='/propertydescription/:propertyid' element={<PropertyDescription />}></Route>
+          <Route exact path='/blogshome' element={<Blogs />}></Route>
+          <Route exact path='/blogpost/:blogid' element={<BlogPost />}></Route>
+          <Route exact path='/adminblogpage' element={<AdminBlogPage />}></Route>
         </Routes>
       </BrowserRouter>
     </>

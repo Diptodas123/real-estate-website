@@ -77,7 +77,7 @@ const Menu = () => {
                             </div>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/blogs" >
+                            <Link className="nav-link" to="/blogshome" >
                                 Blog
                             </Link>
                         </li>
