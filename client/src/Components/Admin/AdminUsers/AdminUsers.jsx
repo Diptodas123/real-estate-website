@@ -32,11 +32,11 @@ const AdminUsers = () => {
         fetchAllUsers();
     }, []);
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log(allUsers);
-    },[allUsers]);
-    // *Add unique IDs to each user in mockUsers
+    }, [allUsers]);
 
+    // *Add unique IDs to each user in mockUsers
     // TODO: change the 'mockUsers' to the required API
     const usersWithIds = allUsers.map((value, index, array) => ({
         id: index + 1,
@@ -46,12 +46,19 @@ const AdminUsers = () => {
     const columns = [
         {
             field: "_id",
-            headerName: "ID"
+            headerName: "ID",
+            width: 90,
         },
 
         {
             field: "photo",
-            headerName: "Photo",
+            headerName: "Avatar",
+            width: 100,
+            cellClassName: "photo-column-cell",
+            renderCell: (params) => <img src={params.value}
+                alt="There was something here"
+                id="admin-user-images"
+            />,
         },
 
         {

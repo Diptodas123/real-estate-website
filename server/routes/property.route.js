@@ -2,7 +2,7 @@ import express from "express";
 import { body, validationResult } from "express-validator";
 import fetchUser from "../middleware/fetchUser.js";
 import Property from "../schema/propertySchema.js";
-import { deleteProperty, getMyProperty,updateProperty,getProperty } from "../controller/property.controller.js";
+import { deleteProperty, getMyProperty, updateProperty, getProperty, getOwnerAvatar } from "../controller/property.controller.js";
 const router = express.Router();
 
 //ROUTE 1:POST request to post a property. Login required
@@ -11,7 +11,7 @@ router.post("/postproperty", fetchUser, [
     body('ownerPhn', 'Enter a valid Phone number').isLength({ min: 10 }),
     body('propertyName', "Property Name Can't Be Empty").exists(),
     body('propertyAge', "Property Age Can only be Inetger Value").isInt(),
-    body('imageUrls', "Please upload at least 1 image & at most 6 images").isArray({ min: 1, max: 6 }),
+    body('imageUrls', "Please upload 3 images").isArray({ min: 3, max: 3 }),
     body('street', "Street field Can't Be Empty").exists(),
     body('city', "City Field Can't Be Empty").exists(),
     body('state', "State Field Can't Be Empty").exists(),
@@ -21,11 +21,11 @@ router.post("/postproperty", fetchUser, [
     body('description', "Description Field can't be empty").notEmpty(),
     body('bathrooms', "No. of Bathrooms can only be Integer Value").isInt(),
     body('bedrooms', "No. of Bedrooms can only be Integer Value").isInt(),
-    body('parking',"Parking Field can only contain Boolean Value").isBoolean(),
-    body('furnished',"Furnished Field can only contain Boolean Value").isBoolean(),
-    body('advertisementType',"Advertisement Type Can't be Empty").notEmpty(),
-    body('availability',"Availability Can't be Blank").notEmpty(),
-    body('propertyType',"Property Type Can't be Blank").notEmpty(),
+    body('parking', "Parking Field can only contain Boolean Value").isBoolean(),
+    body('furnished', "Furnished Field can only contain Boolean Value").isBoolean(),
+    body('advertisementType', "Advertisement Type Can't be Empty").notEmpty(),
+    body('availability', "Availability Can't be Blank").notEmpty(),
+    body('propertyType', "Property Type Can't be Blank").notEmpty(),
 ], async (req, res) => {
 
     const errors = validationResult(req);
@@ -65,15 +65,18 @@ router.post("/postproperty", fetchUser, [
 });
 
 //ROUTE 2:GET request to get posted properties of a user. Login required
-router.get("/getmyproperty/:id",fetchUser,getMyProperty);
+router.get("/getmyproperty/:id", fetchUser, getMyProperty);
 
 //ROUTE 3:GET request to get posted properties. Login Not required
-router.get("/getproperty/:id",getProperty);
+router.get("/getproperty/:id", getProperty);
 
-//ROUTE 4:DELETE request to delete an existing property. Login required
-router.delete("/deleteproperty/:id",fetchUser,deleteProperty);
+//ROUTE 4:GET request to get owner avatar of an existing property. Login Not required
+router.get("/getowneravatar/:id", getOwnerAvatar);
 
-//ROUTE 5:PUT request to update an existing property. Login required
-router.put("/updateproperty/:id",fetchUser,updateProperty);
+//ROUTE 5:DELETE request to delete an existing property. Login required
+router.delete("/deleteproperty/:id", fetchUser, deleteProperty);
+
+//ROUTE 6:PUT request to update an existing property. Login required
+router.put("/updateproperty/:id", fetchUser, updateProperty);
 
 export default router;

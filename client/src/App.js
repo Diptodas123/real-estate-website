@@ -17,6 +17,7 @@ import Profile from './Components/Profile/Profile';
 import AdminUsers from './Components/Admin/AdminUsers/AdminUsers';
 import MyProperty from './Components/Profile/MyProperty';
 import UpdateProperty from './Components/UpdateProperty/UpdateProperty';
+import PropertyDescription from './Components/PropertyDescription/PropertyDescription';
 
 function App() {
 
@@ -56,6 +57,7 @@ function App() {
           <Route exact path='/profile' element={(localStorage.getItem("token")) ? <Profile /> : <Navigate to="/" />}></Route>
           <Route exact path='/myproperty' element={(localStorage.getItem("token")) ? <MyProperty /> : <Navigate to="/" />}></Route>
           <Route exact path='/updateproperty/:propertyid' element={(localStorage.getItem("token")) ? <UpdateProperty /> : <Navigate to="/" />}></Route>
+          <Route exact path='/propertydescription/:propertyid' element={<PropertyDescription />}></Route>
         </Routes>
       </BrowserRouter>
     </>

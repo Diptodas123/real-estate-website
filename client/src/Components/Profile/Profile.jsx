@@ -6,7 +6,7 @@ import Footer from '../Footer/Footer';
 import { Flip, toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import UserContext from '../../Context/user/UserContext';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { app } from '../../firebase';
 
 const Profile = () => {
@@ -116,20 +116,8 @@ const Profile = () => {
             console.log(json);
             if (json.success) {
                 await setUserData({ id: "", username: "", email: "", phone: "", photo: "" });
-                toast.warn(json.msg, {
-                    position: "top-right",
-                    autoClose: 3000,
-                    transition: Flip,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                });
-                setTimeout(() => {
-                    localStorage.removeItem("token");
-                }, 3700);
+                localStorage.removeItem("token");
+                navigate("/login");
             } else {
                 return toast.warn(json.msg, {
                     position: "top-right",
@@ -159,8 +147,13 @@ const Profile = () => {
         <>
             <Menu />
             <div className='container profile-container'>
-                <h1 className='text-center font-weight-bold my-2'>Profile</h1>
-                <form onSubmit={handleProfileUpdate} className='profile-form my-4' method='post'>
+                <h1 className='text-center font-weight-bold my-2'>
+                    Profile
+                </h1>
+                <form onSubmit={handleProfileUpdate}
+                    className='profile-form my-4'
+                    method='post'
+                >
                     <div className="row">
                         <div className="profile-group col-12">
                             <input
@@ -171,7 +164,10 @@ const Profile = () => {
                                 name='photo'
                                 onChange={(e) => setFile(e.target.files[0])}
                             />
-                            <img src={formData.photo || userData.photo} alt='Profile-Avatar' onClick={() => fileRef.current.click()} />
+                            <img src={formData.photo || userData.photo}
+                                alt='Profile-Avatar'
+                                onClick={() => fileRef.current.click()}
+                            />
                         </div>
                     </div>
                     <div className="row">
@@ -193,34 +189,119 @@ const Profile = () => {
                     </div>
                     <div className="row">
                         <div className="profile-group col-12">
-                            <input type="text" className="form-control user-mandatory-fields" name="userName" id="userName" placeholder="Username" onChange={onChange} value={credentials.userName} />
+                            <input type="text"
+                                className="form-control user-mandatory-fields"
+                                name="userName"
+                                id="userName"
+                                placeholder="Username"
+                                onChange={onChange}
+                                value={credentials.userName}
+                            />
                         </div>
                     </div>
                     <div className="row">
                         <div className="profile-group col-12">
-                            <input type="email" className="form-control user-mandatory-fields" name="userEmail" id="userEmail" placeholder="Email" onChange={onChange} value={credentials.userEmail} />
+                            <input type="email"
+                                className="form-control user-mandatory-fields"
+                                name="userEmail"
+                                id="userEmail"
+                                placeholder="Email"
+                                onChange={onChange}
+                                value={credentials.userEmail}
+                            />
                         </div>
                     </div>
                     <div className="row">
                         <div className="profile-group col-12">
-                            <input type="number" className="form-control user-mandatory-fields" name="userPhn" id="userPhn" placeholder="Phone" onChange={onChange} value={credentials.userPhn} />
+                            <input type="number"
+                                className="form-control user-mandatory-fields"
+                                name="userPhn"
+                                id="userPhn"
+                                placeholder="Phone"
+                                onChange={onChange}
+                                value={credentials.userPhn} />
                         </div>
                     </div>
                     <div className="row">
                         <div className="profile-group col-12">
-                            <input type="password" className="form-control user-mandatory-fields" name="userPassword" id="userPassword" placeholder="Password" onChange={onChange} value={credentials.userPassword} />
+                            <input type="password"
+                                className="form-control user-mandatory-fields"
+                                name="userPassword"
+                                id="userPassword"
+                                placeholder="Password"
+                                onChange={onChange}
+                                value={credentials.userPassword}
+                            />
                         </div>
                     </div>
                     <div className="row">
                         <div className="profile-group col-12">
-                            <button type="submit" className="btn btn-purple my-4">Update</button>
+                            <button type="submit"
+                                className="btn btn-purple my-4">
+                                Update
+                            </button>
                         </div>
                     </div>
                     <div className="row" style={{ marginLeft: "19%", marginRight: "19%" }}>
                         <div className="d-flex justify-content-between col-12">
-                            <button type='button' className="btn btn-danger" onClick={handleProfileDelete}>Delete account</button>
-                            <Link to={"/myproperty"}><button type='button' className="btn btn-purple">Show Properties</button></Link>
-                            <button type='button' onClick={handleLogOut} className="btn btn-purple">Log out</button>
+                            <button type='button' className="btn btn-danger"
+                                data-toggle="modal"
+                                data-target="#staticBackdrop"
+                            >
+                                Delete account
+                            </button>
+
+                            {/* //!Modal to show upon clicking delete account */}
+                            <div class="modal fade"
+                                id="staticBackdrop"
+                                data-backdrop="static"
+                                data-keyboard="false"
+                                tabindex="-1"
+                                aria-labelledby="staticBackdropLabel"
+                                aria-hidden="true"
+                            >
+                                <div class="modal-dialog modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title"
+                                                id="staticBackdropLabel"
+                                            >
+                                                This action can't be reversed
+                                            </h5>
+                                            <button type="button"
+                                                class="close"
+                                                data-dismiss="modal"
+                                                aria-label="Close"
+                                            >
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Do you want to continue?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button"
+                                                class="btn btn-secondary"
+                                                data-dismiss="modal"
+                                            >
+                                                no
+                                            </button>
+                                            <button type="button"
+                                                class="btn btn-danger"
+                                                data-dismiss="modal"
+                                                onClick={handleProfileDelete}
+                                            >
+                                                Yes
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type='button' onClick={handleLogOut}
+                                className="btn btn-purple">
+                                Log out
+                            </button>
                         </div>
                     </div>
                 </form>

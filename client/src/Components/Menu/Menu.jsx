@@ -1,16 +1,26 @@
 import React, { useContext } from "react";
-import "./Menu.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from 'react-router-dom';
 import UserContext from "../../Context/user/UserContext";
+import "./Menu.css";
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import HouseOutlinedIcon from '@mui/icons-material/HouseOutlined';
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+
+
+
 const Menu = () => {
 
-    const userContext = useContext(UserContext);
-    const { userData } = userContext;
+    const navigate = useNavigate();
 
-    // const handleLogOut = () => {
-    //     localStorage.removeItem("token");
-    //     navigate("/login");
-    // }
+    const userContext = useContext(UserContext);
+
+    const { userData, setUserData } = userContext;
+    const handleLogOut = async (e) => {
+        e.preventDefault();
+        localStorage.removeItem("token");
+        await setUserData({ id: "", username: "", email: "", phone: "", photo: "" });
+        navigate("/login");
+    }
 
     return (
         <>
@@ -99,10 +109,39 @@ const Menu = () => {
                             </div>
                             :
                             <>
-
-                                <Link to={"/profile"}>
-                                    <img src={userData.photo} alt="profile" className="profile-avatar mx-4 nav-item" style={{ width: "50px" }} />
-                                </Link>
+                                <ul className="navbar-nav ml-auto">
+                                    <li className="dropdown menubar-profile-pic-dropdown-button-wrapper nav-item">
+                                        <button className="menubar-profile-pic-dropdown-button"
+                                            type="button"
+                                            data-toggle="dropdown"
+                                            aria-expanded="false">
+                                            <img src={userData.photo}
+                                                alt="profile"
+                                                className="profile-avatar mx-4 nav-item"
+                                                style={{ width: "50px", marginTop: 0 }} />
+                                        </button>
+                                        <div className="dropdown-menu menubar-profile-pic-dropdown-options">
+                                            <Link className="dropdown-item sub-nav-link"
+                                                to={"/profile"}
+                                            >
+                                                <AccountCircleOutlinedIcon /> Profile
+                                            </Link>
+                                            <Link className="dropdown-item sub-nav-link"
+                                                to={"/myproperty"}
+                                            >
+                                                <HouseOutlinedIcon /> My Properties
+                                            </Link>
+                                            <Link className="dropdown-item sub-nav-link"
+                                                to={"/login"}
+                                                id="menubar-logout-dropdown-button-handler"
+                                                onClick={handleLogOut}
+                                            >
+                                                <LogoutOutlinedIcon /> Log out
+                                            </Link>
+                                        </div>
+                                    </li>
+                                </ul>
+                                {/* //TODO: Testing */}
                                 {/* <button type="button" className="btn btn-outline-purple mx-3" onClick={handleLogOut}>
                                     <i className="fa-solid fa-right-from-bracket"></i> Log Out
                                 </button> */}
