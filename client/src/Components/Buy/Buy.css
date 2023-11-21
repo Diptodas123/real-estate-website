@@ -4,6 +4,19 @@
     border-radius: 20px 20px 20px 20px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
     /* background-color: blue; */
+
+    &:hover{
+        animation: cardshoveranimation 1s ease 0s 1 normal forwards;
+    }
+}
+.buy-card-wrapper {
+    text-decoration: none;
+    color: currentColor;
+    cursor: pointer;
+    &:hover {
+        text-decoration: none;
+        color: currentColor;
+    }
 }
 
 /* Controls the Css for the top part of the cards */

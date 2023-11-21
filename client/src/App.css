@@ -29,6 +29,17 @@
   background-color: #9469e2;
   color: white;
 }
-img{
+
+img {
   object-fit: cover;
+}
+
+@keyframes cardshoveranimation {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1.1);
+  }
 }

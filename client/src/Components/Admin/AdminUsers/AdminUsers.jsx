@@ -39,7 +39,7 @@ const AdminUsers = () => {
     // *Add unique IDs to each user in mockUsers
     // TODO: change the 'mockUsers' to the required API
     const usersWithIds = allUsers.map((value, index, array) => ({
-        id: index + 1,
+        id: value._id,
         ...value,
     }));
 

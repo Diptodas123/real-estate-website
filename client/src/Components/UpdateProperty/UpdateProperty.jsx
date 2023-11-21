@@ -51,7 +51,7 @@ const UpdatedProperty = () => {
         bedrooms: "",
         parking: "",
         furnished: "",
-        advertisementType: "sale",
+        advertisementType: "",
         availability: "",
         propertyType: "",
     });
@@ -261,7 +261,7 @@ const UpdatedProperty = () => {
                                         value={formData.advertisementType}
                                     >
                                         <option value={'rent'}>On Rent</option>
-                                        <option value={'sale'}>On Sale</option>
+                                        <option value={'sell'}>On Sell</option>
                                     </select>
                                 </div>
                             </div>
@@ -344,7 +344,7 @@ const UpdatedProperty = () => {
                             </div>
                             <div className="col-12 col-md-4 form-filed">
                                 <div className="form-group">
-                                    <label htmlFor="price">{formData.advertisementType === "sale" ? "Price(₹)" : "Rent/month(₹)"}<span style={{ color: 'red' }}>*</span></label>
+                                    <label htmlFor="price">{formData.advertisementType === "sell" ? "Price(₹)" : "Rent/month(₹)"}<span style={{ color: 'red' }}>*</span></label>
                                     <input type="number"
                                         required name="price"
                                         value={formData.price}

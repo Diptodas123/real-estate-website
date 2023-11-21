@@ -20,9 +20,9 @@ export default function Blogs() {
         }
       });
       const json = await resposne.json();
-      setTimeout(()=>{
+      setTimeout(() => {
         setLoading(false);
-      },2700);
+      }, 2700);
 
       setBlogs(json.blogs)
     }

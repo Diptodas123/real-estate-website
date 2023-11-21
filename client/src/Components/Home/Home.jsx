@@ -115,62 +115,65 @@ const Home = () => {
 
                                 // !list of flats and cards
                                 <div className="container col-lg-3 col-md-6 col-sm-12 mb-5" key={buyHeading}>
-                                    <div className="buy-card bg-light">
+                                    <Link className="buy-card-wrapper" to={`/propertydescription/${value._id}`}>
+                                        <div className="buy-card bg-light">
 
-                                        {/* top side of the card */}
-                                        <div className="buy-card-top">
-                                            <img src={photo} alt={photoAlt} height={"100%"} width={"100%"}></img>
-                                            <i className="fa-regular fa-heart wishlist"></i>
-                                        </div>
-
-                                        {/* bottom side if the card */}
-                                        <div className="buy-card-bottom">
-                                            <p className="buy-card-prize">₹{buyPrize}<span className="buy-persqft" style={{ color: "#B7B7B7" }}></span></p>
-                                            <p className="buy-card-heading">{buyHeading}</p>
-                                            {/* <p className="buy-card-bhk">{bhk}</p> */}
-
-
-                                            {/* Sybmbol and text to check location */}
-                                            <div className="buy-card-Loc-status d-flex">
-                                                <p className="buy-card-build-symbol">
-                                                    <i className={buildLoc ? buildLoc : ""}></i>
-                                                </p>
-                                                <p className="buy-card-Loc-status-text">
-                                                    {buildLocText}
-                                                </p>
-
+                                            {/* top side of the card */}
+                                            <div className="buy-card-top">
+                                                <img src={photo} alt={photoAlt} height={"100%"} width={"100%"}></img>
                                             </div>
-                                            <div className="container">
-                                                <hr className="buy-card-hr-line-custom" style={{ marginTop: "-10px" }} />
+
+
+
+                                            {/* bottom side if the card */}
+                                            <div className="buy-card-bottom">
+                                                <p className="buy-card-prize">₹{buyPrize}<span className="buy-persqft" style={{ color: "#B7B7B7" }}></span></p>
+                                                <p className="buy-card-heading">{buyHeading}</p>
+                                                {/* <p className="buy-card-bhk">{bhk}</p> */}
+
+
+                                                {/* Sybmbol and text to check location */}
+                                                <div className="buy-card-Loc-status d-flex">
+                                                    <p className="buy-card-build-symbol">
+                                                        <i className={buildLoc ? buildLoc : ""}></i>
+                                                    </p>
+                                                    <p className="buy-card-Loc-status-text">
+                                                        {buildLocText}
+                                                    </p>
+
+                                                </div>
+                                                <div className="container">
+                                                    <hr className="buy-card-hr-line-custom" style={{ marginTop: "-10px" }} />
+                                                </div>
+                                                {/* Dimensions icon and status */}
+                                                <ul className="buy-icons d-flex">
+
+                                                    <li className="includesWrapper">
+                                                        <p className="buildingstatus">
+                                                            <i className={sqftIcon}></i>
+                                                        </p>
+                                                        <p className="blackText">{sqft}</p>
+                                                    </li>
+
+                                                    {/* Ready to move or not icon and status */}
+                                                    <li className="includesWrapper">
+                                                        <p className="buildingstatus">
+                                                            <i className={statusIcon}></i>
+                                                        </p>
+                                                        <p className="blackText">{status}</p>
+                                                    </li>
+
+                                                    {/* Total Floors */}
+                                                    <li className="includesWrapper">
+                                                        <p className="buildingstatus">
+                                                            <i className={doorIcon}></i>
+                                                        </p>
+                                                        <p className="blackText">{bhk}</p>
+                                                    </li>
+                                                </ul>
                                             </div>
-                                            {/* Dimensions icon and status */}
-                                            <ul className="buy-icons d-flex">
-
-                                                <li className="includesWrapper">
-                                                    <p className="buildingstatus">
-                                                        <i className={sqftIcon}></i>
-                                                    </p>
-                                                    <p className="blackText">{sqft}</p>
-                                                </li>
-
-                                                {/* Ready to move or not icon and status */}
-                                                <li className="includesWrapper">
-                                                    <p className="buildingstatus">
-                                                        <i className={statusIcon}></i>
-                                                    </p>
-                                                    <p className="blackText">{status}</p>
-                                                </li>
-
-                                                {/* Total Floors */}
-                                                <li className="includesWrapper">
-                                                    <p className="buildingstatus">
-                                                        <i className={doorIcon}></i>
-                                                    </p>
-                                                    <p className="blackText">{bhk}</p>
-                                                </li>
-                                            </ul>
                                         </div>
-                                    </div>
+                                    </Link>
                                 </div>
                             )
                         })
@@ -188,49 +191,51 @@ const Home = () => {
                                 statusIcon, status, doorIcon, buildLoc, buildLocText } = value;
                             return (
                                 <div className="container col-lg-3 col-md-6 col-sm-12 mb-5" key={rentHeading}>
-                                    <div className="rent-card bg-light" >
-                                        <div className="rent-card-top">
-                                            <img src={photo} alt={photoAlt} height={"100%"} width={"100%"}></img>
-                                            <i className="fa-regular fa-heart wishlist" style={{ position: "absolute" }}></i>
-                                        </div>
-                                        <div className="rent-card-bottom">
-                                            <p className="rent-card-prize">₹{rentPrice}<span className="rent-persqft" style={{ color: "#B7B7B7" }}></span></p>
-                                            <p className="rent-card-heading">{rentHeading}</p>
-                                            <div className="rent-card-Loc-status d-flex">
-                                                <p className="rent-card-build-symbol">
-                                                    <i className={buildLoc}></i>
-                                                </p>
-                                                <p className="rent-card-Loc-status-text">
-                                                    {buildLocText}
-                                                </p>
-
+                                    <Link className="rent-card-wrapper" to={`/propertydescription/${value._id}`}>
+                                        <div className="rent-card bg-light" >
+                                            <div className="rent-card-top">
+                                                <img src={photo} alt={photoAlt} height={"100%"} width={"100%"}></img>
                                             </div>
-                                            <div className="container">
-                                                <hr className="rent-card-hr-line-custom" style={{ marginTop: "-10px" }} />
-                                            </div>
-                                            <ul className="rent-icons d-flex">
 
-                                                <li className="includesWrapper">
-                                                    <p className="buildingstatus">
-                                                        <i className={sqftIcon}></i>
+                                            <div className="rent-card-bottom">
+                                                <p className="rent-card-prize">₹{rentPrice}<span className="rent-persqft" style={{ color: "#B7B7B7" }}></span></p>
+                                                <p className="rent-card-heading">{rentHeading}</p>
+                                                <div className="rent-card-Loc-status d-flex">
+                                                    <p className="rent-card-build-symbol">
+                                                        <i className={buildLoc}></i>
                                                     </p>
-                                                    <p className="blackText">{sqft}</p>
-                                                </li>
-                                                <li className="includesWrapper">
-                                                    <p className="buildingstatus">
-                                                        <i className={statusIcon}></i>
+                                                    <p className="rent-card-Loc-status-text">
+                                                        {buildLocText}
                                                     </p>
-                                                    <p className="blackText">{status}</p>
-                                                </li>
-                                                <li className="includesWrapper">
-                                                    <p className="buildingstatus">
-                                                        <i className={doorIcon}></i>
-                                                    </p>
-                                                    <p className="blackText">{bhk}</p>
-                                                </li>
-                                            </ul>
+
+                                                </div>
+                                                <div className="container">
+                                                    <hr className="rent-card-hr-line-custom" style={{ marginTop: "-10px" }} />
+                                                </div>
+                                                <ul className="rent-icons d-flex">
+
+                                                    <li className="includesWrapper">
+                                                        <p className="buildingstatus">
+                                                            <i className={sqftIcon}></i>
+                                                        </p>
+                                                        <p className="blackText">{sqft}</p>
+                                                    </li>
+                                                    <li className="includesWrapper">
+                                                        <p className="buildingstatus">
+                                                            <i className={statusIcon}></i>
+                                                        </p>
+                                                        <p className="blackText">{status}</p>
+                                                    </li>
+                                                    <li className="includesWrapper">
+                                                        <p className="buildingstatus">
+                                                            <i className={doorIcon}></i>
+                                                        </p>
+                                                        <p className="blackText">{bhk}</p>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </Link>
                                 </div>
                             )
                         })

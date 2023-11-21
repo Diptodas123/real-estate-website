@@ -20,6 +20,8 @@ import PropertyDescription from './Components/PropertyDescription/PropertyDescri
 import Blogs from './Components/Blogs/Blogs';
 import BlogPost from './Components/Blogs/BlogPost';
 import AdminBlogPage from './Components/Admin/AdminPages/AdminBlogPage';
+import AdminRentPage from './Components/Admin/AdminPages/AdminRentPage';
+import AdminSellPage from './Components/Admin/AdminPages/AdminSellPage';
 
 function App() {
 
@@ -62,6 +64,8 @@ function App() {
           <Route exact path='/propertydescription/:propertyid' element={<PropertyDescription />}></Route>
           <Route exact path='/blogshome' element={<Blogs />}></Route>
           <Route exact path='/blogpost/:blogid' element={<BlogPost />}></Route>
+          <Route exact path="/adminsellpage" element={sessionStorage.getItem("isAdmin") ? <AdminSellPage /> : <Navigate to={"/adminlogin"} />}></Route>
+          <Route exact path="/adminrentpage" element={sessionStorage.getItem("isAdmin") ? <AdminRentPage /> : <Navigate to={"/adminlogin"} />}></Route>
         </Routes>
       </BrowserRouter>
     </>

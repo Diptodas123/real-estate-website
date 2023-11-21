@@ -1,15 +1,35 @@
 import React, { useEffect, useState } from "react";
 import "./Rent.css";
-import RentCategories from "../../Data/RentCategories.js";
 import Footer from "../Footer/Footer";
 import Menu from "../Menu/Menu";
+import { Link } from "react-router-dom";
 
 const RentPackages = () => {
     const [rentsData, setData] = useState([]);
+    const [loading,setLoading]=useState(true);
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        setData(RentCategories);
+
+        const fetchAllRents = async () => {
+            try {
+                const response = await fetch("http://localhost:8000/api/property/getallrents", {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                });
+                const json = await response.json();
+                setTimeout(()=>{
+                    setLoading(false);
+                },2700);
+                setData(json.rents)
+            } catch (error) {
+                console.log("Error While Fetching Rent Properties");
+            }
+        }
+
+        fetchAllRents();
     }, []);
 
     return (
@@ -40,57 +60,59 @@ const RentPackages = () => {
 
                         <div className="row">
                             {
-                                rentsData.map((value) => {
-                                    const { photo, photoAlt, rentHeading, bhk, rentPrice, sqftIcon, sqft,
-                                        statusIcon, status, doorIcon, buildLoc, buildLocText } = value;
-                                    return (
-                                        <div className="container col-lg-3 col-md-6 col-sm-12 mb-5">
-                                            <div className="rent-card bg-light">
-                                                <div className="rent-card-top">
-                                                    <img src={photo} alt={photoAlt} height={"100%"} width={"100%"}></img>
-                                                    <i className="fa-regular fa-heart wishlist" style={{ position: "absolute" }}></i>
-                                                </div>
-                                                <div className="rent-card-bottom">
-                                                    <p className="rent-card-prize">₹{rentPrice}<span className="rent-persqft" style={{ color: "#B7B7B7" }}></span></p>
-                                                    <p className="rent-card-heading">{rentHeading}</p>
-                                                    <div className="rent-card-Loc-status d-flex">
-                                                        <p className="rent-card-build-symbol">
-                                                            <i className={buildLoc}></i>
-                                                        </p>
-                                                        <p className="rent-card-Loc-status-text">
-                                                            {buildLocText}
-                                                        </p>
 
-                                                    </div>
-                                                    <div className="container">
-                                                        <hr className="rent-card-hr-line-custom" style={{ marginTop: "-10px" }} />
-                                                    </div>
-                                                    <ul className="rent-icons d-flex">
+                                loading === true ? <img src='https://cdn.dribbble.com/users/330915/screenshots/2311781/media/2e95edec9c2a16605982c96d1044023b.gif' alt='spinner' style={{ margin: "0 auto", display: "block" }} /> :
+                                    rentsData.map((value) => {
+                                        const { imageUrls, propertyName, bhk, price, sqftIcon, sqft,
+                                            statusIcon, availability, doorIcon, street, city, state } = value;
+                                        return (
+                                            <div className="container col-lg-3 col-md-6 col-sm-12 mb-5">
+                                                <Link to={`/propertydescription/${value._id}`} className="rent-card-wrapper">
+                                                    <div className="rent-card bg-light">
+                                                        <div className="rent-card-top">
+                                                            <img src={imageUrls[0]} alt={"property img"} height={"100%"} width={"100%"}></img>
+                                                        </div>
+                                                        <div className="rent-card-bottom">
+                                                            <p className="rent-card-prize">₹{price}<span className="rent-persqft" style={{ color: "#B7B7B7" }}></span></p>
+                                                            <p className="rent-card-heading">{propertyName}</p>
+                                                            <div className="rent-card-Loc-status d-flex">
+                                                                <p className="rent-card-build-symbol">
+                                                                    <i className={"fa-solid fa-location-dot"}></i>
+                                                                </p>
+                                                                <p className="rent-card-Loc-status-text">
+                                                                    {`${street}, ${city}, ${state} `}
+                                                                </p>
+                                                            </div>
+                                                            <div className="container">
+                                                                <hr className="rent-card-hr-line-custom" style={{ marginTop: "-10px" }} />
+                                                            </div>
+                                                            <ul className="rent-icons d-flex">
 
-                                                        <li className="includesWrapper">
-                                                            <p className="buildingstatus">
-                                                                <i className={sqftIcon}></i>
-                                                            </p>
-                                                            <p className="blackText">{sqft}</p>
-                                                        </li>
-                                                        <li className="includesWrapper">
-                                                            <p className="buildingstatus">
-                                                                <i className={statusIcon}></i>
-                                                            </p>
-                                                            <p className="blackText">{status}</p>
-                                                        </li>
-                                                        <li className="includesWrapper">
-                                                            <p className="buildingstatus">
-                                                                <i className={doorIcon}></i>
-                                                            </p>
-                                                            <p className="blackText">{bhk}</p>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                                                <li className="includesWrapper">
+                                                                    <p className="buildingstatus">
+                                                                        <i className={sqftIcon}></i>
+                                                                    </p>
+                                                                    <p className="blackText">{sqft}</p>
+                                                                </li>
+                                                                <li className="includesWrapper">
+                                                                    <p className="buildingstatus">
+                                                                        <i className={`fa-solid fa-building-user`}></i>
+                                                                    </p>
+                                                                    <p className="blackText">{availability}</p>
+                                                                </li>
+                                                                <li className="includesWrapper">
+                                                                    <p className="buildingstatus">
+                                                                        <i className={doorIcon}></i>
+                                                                    </p>
+                                                                    <p className="blackText">{bhk}</p>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </Link>
                                             </div>
-                                        </div>
-                                    )
-                                })
+                                        )
+                                    })
                             }
                         </div>
                     </div>
