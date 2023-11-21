@@ -52,16 +52,16 @@ function App() {
           <Route exact path='/listproperty' element={(localStorage.getItem("token")) ? <Form /> : <Navigate to="/login" />}></Route>
           <Route exact path='/contact' element=<Contact />></Route>
           <Route exact path='/about' element=<About />></Route>
-          <Route exact path='/adminlogin' element=<AdminLogin />></Route>
-          <Route exact path='/adminuser' element=<AdminUsers />></Route>
-          <Route exact path='/adminhome' element=<Dashboard />></Route>
+          <Route exact path='/adminlogin' element={sessionStorage.getItem("isAdmin") ? <Dashboard /> : <AdminLogin />}></Route>
+          <Route exact path='/adminuser' element={sessionStorage.getItem("isAdmin") ? <AdminUsers /> : <Navigate to={"/adminlogin"} />}></Route>
+          <Route exact path='/adminhome' element={sessionStorage.getItem("isAdmin") ? <Dashboard /> : <Navigate to={"/adminlogin"} />}></Route>
+          <Route exact path='/adminblogpage' element={sessionStorage.getItem("isAdmin") ? <AdminBlogPage /> : <Navigate to={"/adminlogin"} />}></Route>
           <Route exact path='/profile' element={(localStorage.getItem("token")) ? <Profile /> : <Navigate to="/" />}></Route>
           <Route exact path='/myproperty' element={(localStorage.getItem("token")) ? <MyProperty /> : <Navigate to="/" />}></Route>
           <Route exact path='/updateproperty/:propertyid' element={(localStorage.getItem("token")) ? <UpdateProperty /> : <Navigate to="/" />}></Route>
           <Route exact path='/propertydescription/:propertyid' element={<PropertyDescription />}></Route>
           <Route exact path='/blogshome' element={<Blogs />}></Route>
           <Route exact path='/blogpost/:blogid' element={<BlogPost />}></Route>
-          <Route exact path='/adminblogpage' element={<AdminBlogPage />}></Route>
         </Routes>
       </BrowserRouter>
     </>

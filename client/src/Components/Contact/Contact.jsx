@@ -22,7 +22,7 @@ const Contact = () => {
             getUserData();
         }
         // eslint-disable-next-line
-    }, []);
+    }, [userData]);
 
     const onChange = (e) => {
         setContact({ ...contact, [e.target.name]: e.target.value });

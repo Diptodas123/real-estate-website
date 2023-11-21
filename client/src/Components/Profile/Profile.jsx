@@ -252,42 +252,42 @@ const Profile = () => {
                             </button>
 
                             {/* //!Modal to show upon clicking delete account */}
-                            <div class="modal fade"
+                            <div className="modal fade"
                                 id="staticBackdrop"
                                 data-backdrop="static"
                                 data-keyboard="false"
-                                tabindex="-1"
+                                tabIndex="-1"
                                 aria-labelledby="staticBackdropLabel"
                                 aria-hidden="true"
                             >
-                                <div class="modal-dialog modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title"
+                                <div className="modal-dialog modal-dialog modal-dialog-centered">
+                                    <div className="modal-content">
+                                        <div className="modal-header">
+                                            <h5 className="modal-title"
                                                 id="staticBackdropLabel"
                                             >
                                                 This action can't be reversed
                                             </h5>
                                             <button type="button"
-                                                class="close"
+                                                className="close"
                                                 data-dismiss="modal"
                                                 aria-label="Close"
                                             >
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <div class="modal-body">
+                                        <div className="modal-body">
                                             Do you want to continue?
                                         </div>
-                                        <div class="modal-footer">
+                                        <div className="modal-footer">
                                             <button type="button"
-                                                class="btn btn-secondary"
+                                                className="btn btn-secondary"
                                                 data-dismiss="modal"
                                             >
                                                 no
                                             </button>
                                             <button type="button"
-                                                class="btn btn-danger"
+                                                className="btn btn-danger"
                                                 data-dismiss="modal"
                                                 onClick={handleProfileDelete}
                                             >

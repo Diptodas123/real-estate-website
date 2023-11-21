@@ -39,7 +39,7 @@ const BuyPackages = () => {
                     {/* // ?banner Hero for the buy page search bar icon button */}
                     <div className="buy-page-header-hero-search-complete">
                         <input type="text" className="buying-page-header-hero-search" placeholder="What're you looking for?"></input>
-                        <button onClick={handleSearch} className="buying-page-header-hero-search-button"><i class="fa-solid fa-magnifying-glass fa-lg"></i></button>
+                        <button onClick={handleSearch} className="buying-page-header-hero-search-button"><i className="fa-solid fa-magnifying-glass fa-lg"></i></button>
                     </div>
 
                     {/* // !starting ot the page below */}
