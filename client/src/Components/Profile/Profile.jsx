@@ -195,7 +195,7 @@ const Profile = () => {
                                 id="userName"
                                 placeholder="Username"
                                 onChange={onChange}
-                                value={credentials.userName}
+                                value={credentials.userName || ""}
                             />
                         </div>
                     </div>
@@ -207,7 +207,7 @@ const Profile = () => {
                                 id="userEmail"
                                 placeholder="Email"
                                 onChange={onChange}
-                                value={credentials.userEmail}
+                                value={credentials.userEmail || ""}
                             />
                         </div>
                     </div>
@@ -219,7 +219,7 @@ const Profile = () => {
                                 id="userPhn"
                                 placeholder="Phone"
                                 onChange={onChange}
-                                value={credentials.userPhn} />
+                                value={credentials.userPhn || ""} />
                         </div>
                     </div>
                     <div className="row">
@@ -230,7 +230,7 @@ const Profile = () => {
                                 id="userPassword"
                                 placeholder="Password"
                                 onChange={onChange}
-                                value={credentials.userPassword}
+                                value={credentials.userPassword || ""}
                             />
                         </div>
                     </div>

@@ -149,7 +149,7 @@ const Home = () => {
             <div className="container mt-5 text-center home-content">
                 <hr />
                 <h4>NEW PROPERTIES</h4>
-                <h3><b>For Sell</b></h3>
+                <h3><b>For Sale</b></h3>
                 <div className="row text-left">
                     {
                         loading === true ?

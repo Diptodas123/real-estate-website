@@ -85,7 +85,7 @@ const PropertyDescription = () => {
                 <Menu />
                 <div className='container'>
                     {/* //?Property Header / Name */}
-                    <h3 h3 className='property-description-header'>
+                    <h3 className='property-description-header'>
                         {propertyData.propertyName || <Skeleton />}
                     </h3>
 
@@ -237,14 +237,14 @@ const PropertyDescription = () => {
                                     <input type='text'
                                         placeholder='Name'
                                         name='name'
-                                        value={contactDetails.name}
+                                        value={contactDetails.name || ""}
                                         onChange={handleOnChange}
                                         id='namepropertyform'
                                     /></label>
                                 <label><PhoneEnabledIcon /><span> Phone</span>
                                     <input type='number'
                                         placeholder='123-456-7891'
-                                        value={contactDetails.phn}
+                                        value={contactDetails.phn || ""}
                                         onChange={handleOnChange}
                                         name='phn'
                                         id='phnpropertyform'
@@ -255,7 +255,7 @@ const PropertyDescription = () => {
                                     <input type='email'
                                         placeholder='demo@gmail.com'
                                         onChange={handleOnChange}
-                                        value={contactDetails.email}
+                                        value={contactDetails.email || ""}
                                         name='email'
                                         id='emailpropertyform'
                                     />
@@ -263,7 +263,7 @@ const PropertyDescription = () => {
                                 <label><HouseIcon /><span> Available for</span>
                                     <input type='text'
                                         onChange={handleOnChange}
-                                        value={(propertyData.advertisementType)}
+                                        value={(propertyData.advertisementType) || ""}
                                         name='advertisementType'
                                         id='advertisementType'
                                         readOnly
