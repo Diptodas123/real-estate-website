@@ -3,6 +3,12 @@ import "./Buy.css";
 import Footer from "../Footer/Footer";
 import Menu from "../Menu/Menu";
 import { Link } from "react-router-dom";
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import EngineeringIcon from '@mui/icons-material/Engineering';
+import BathtubIcon from '@mui/icons-material/Bathtub';
+import BedIcon from '@mui/icons-material/Bed';
+
+
 
 const BuyPackages = () => {
 
@@ -75,25 +81,22 @@ const BuyPackages = () => {
                             {
                                 loading === true ? <img src='https://cdn.dribbble.com/users/330915/screenshots/2311781/media/2e95edec9c2a16605982c96d1044023b.gif' alt='Loading...' style={{ margin: "0 auto", display: "block" }} /> :
                                     buyData.map((value) => {
-                                        const { imageUrls, propertyName, bhk, price, sqftIcon, sqft,
-                                            statusIcon, availability, doorIcon, street, city, state } = value;
+                                        const { imageUrls, propertyName, bathrooms, price, bedrooms, street, city, state, } = value;
                                         return (
 
-                                            // !list of flats and cards
+                                            // !list of cards
                                             <div className="container col-lg-3 col-md-6 col-sm-12 mb-5">
                                                 <Link to={`/propertydescription/${value._id}`} className="buy-card-wrapper">
                                                     <div className="buy-card bg-light">
 
                                                         {/* top side of the card */}
                                                         <div className="buy-card-top">
-                                                            <img src={imageUrls[0]} alt={"buy img"} height={"100%"} width={"100%"}></img>
+                                                            <img src={imageUrls[0]} alt={"buy img"} height={"100%"} width={"100%"} />
                                                         </div>
-
                                                         {/* bottom side if the card */}
                                                         <div className="buy-card-bottom">
-                                                            <p className="buy-card-prize">₹{price}/month<span className="buy-persqft" style={{ color: "#B7B7B7" }}></span></p>
+                                                            <p className="buy-card-prize">₹{price}<span className="buy-persqft" style={{ color: "#B7B7B7" }}></span></p>
                                                             <p className="buy-card-heading">{propertyName}</p>
-                                                            {/* <p className="buy-card-bhk">{bhk}</p> */}
 
 
                                                             {/* Sybmbol and text to check location */}
@@ -111,28 +114,45 @@ const BuyPackages = () => {
                                                             </div>
                                                             {/* Dimensions icon and status */}
                                                             <ul className="buy-icons d-flex">
-
                                                                 <li className="includesWrapper">
                                                                     <p className="buildingstatus">
-                                                                        <i className={sqftIcon}></i>
+                                                                        <i><BathtubIcon /></i>
                                                                     </p>
-                                                                    <p className="blackText">{sqft}</p>
+                                                                    <p className="blackText">{bathrooms}<span className="sub-blacktext">Bathroom{(value.bathrooms > 1) ? "s" : ""}</span></p>
                                                                 </li>
 
-                                                                {/* Ready to move or not icon and status */}
-                                                                <li className="includesWrapper">
-                                                                    <p className="buildingstatus">
-                                                                        <i className={statusIcon}></i>
-                                                                    </p>
-                                                                    <p className="blackText">{availability}</p>
-                                                                </li>
 
                                                                 {/* Total Floors */}
                                                                 <li className="includesWrapper">
                                                                     <p className="buildingstatus">
-                                                                        <i className={doorIcon}></i>
+                                                                        <i><BedIcon /></i>
                                                                     </p>
-                                                                    <p className="blackText">{bhk}</p>
+                                                                    <p className="blackText">{bedrooms}<span className="sub-blacktext">Bedroom{(value.bedrooms > 1) ? "s" : ""}</span></p>
+                                                                </li>
+                                                                {/* Ready to move or not icon and status */}
+                                                                <li className="includesWrapper">
+                                                                    <p className="buildingstatus">
+                                                                        <i>{(value.availability === "ready") ?
+                                                                            <CheckCircleOutlineIcon
+                                                                                className="availability-icon-status-ready-buy"
+                                                                            />
+                                                                            :
+                                                                            <EngineeringIcon
+                                                                                className="availability-icon-status-not-ready-buy"
+
+                                                                            />
+                                                                        }
+                                                                        </i>
+                                                                    </p>
+                                                                    <p className="blackText">
+                                                                        <span className="sub-blacktext">
+                                                                            {(value.availability === "ready") ?
+                                                                                "Ready"
+                                                                                :
+                                                                                "Not Ready"
+                                                                            }
+                                                                        </span>
+                                                                    </p>
                                                                 </li>
                                                             </ul>
                                                         </div>

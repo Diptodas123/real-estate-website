@@ -237,11 +237,13 @@
         height: auto;
     }
 }
-@media(width<=768px){
-    .testimonilas-container{
+
+@media(width<=768px) {
+    .testimonilas-container {
         height: 700px;
     }
 }
+
 @media(max-width:900px) {
 
     .card img {
@@ -273,7 +275,8 @@
         height: auto;
     }
 }
-@media(width>=769px){
+
+@media(width>=769px) {
     .testimonilas-container {
         height: 520px;
     }
