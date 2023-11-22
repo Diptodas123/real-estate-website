@@ -37,6 +37,7 @@ const RentPackages = () => {
         }
 
         fetchAllRents();
+        // eslint-disable-next-line
     }, [window.location.search]);
 
     useEffect(() => {
@@ -45,6 +46,7 @@ const RentPackages = () => {
         if (searchTerm) {
             setSearchTerm(searchTerm);
         }
+        // eslint-disable-next-line
     }, [window.location.search]);
 
     const handleSubmit = (e) => {

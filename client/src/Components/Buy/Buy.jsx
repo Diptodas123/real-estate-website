@@ -39,7 +39,7 @@ const BuyPackages = () => {
             }
         }
         fetchAllSells();
-
+        // eslint-disable-next-line
     }, [window.location.search]);
 
     useEffect(() => {
@@ -48,6 +48,7 @@ const BuyPackages = () => {
         if (searchTerm) {
             setSearchTerm(searchTerm);
         }
+        // eslint-disable-next-line
     }, [window.location.search]);
 
     const handleSubmit = (e) => {

@@ -4,7 +4,6 @@ import ChairIcon from '@mui/icons-material/Chair';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import EmailIcon from '@mui/icons-material/Email';
 import EngineeringIcon from '@mui/icons-material/Engineering';
-import HouseIcon from '@mui/icons-material/House';
 import NoCrashIcon from '@mui/icons-material/NoCrash';
 import PersonIcon from '@mui/icons-material/Person';
 import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled';
