@@ -11,12 +11,13 @@ import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled';
 import TaxiAlertIcon from '@mui/icons-material/TaxiAlert';
 import React, { useContext, useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
-import 'react-loading-skeleton/dist/skeleton.css';
 import { useParams } from 'react-router-dom';
 import UserContext from '../../Context/user/UserContext';
 import Footer from '../Footer/Footer';
 import Menu from '../Menu/Menu';
+import 'react-loading-skeleton/dist/skeleton.css';
 import './PropertyDescription.css';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 const PropertyDescription = () => {
     const userContext = useContext(UserContext);
@@ -56,7 +57,7 @@ const PropertyDescription = () => {
 
                 if (userPhoto.success === false) {
                     json.property.ownerPhoto = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
-                }else{
+                } else {
                     json.property.ownerPhoto = userPhoto.photo;
                 }
                 setLoading(false);
@@ -85,12 +86,13 @@ const PropertyDescription = () => {
                 <Menu />
                 <div className='container'>
                     {/* //?Property Header / Name */}
-                    <h3 className='property-description-header'>
+                    <h3 h3 className='property-description-header'>
                         {propertyData.propertyName || <Skeleton />}
                     </h3>
 
                     {/* //?Property sub heading / location */}
                     <h6 className='property-description-sub-header'>
+                        <LocationOnIcon style={{ color: "#7c5bba" }} />
                         {(propertyData.street && propertyData.street.concat(
                             `, ${propertyData.state && propertyData.state.concat(`, ${propertyData.country && propertyData.country}`)}`))
                             ||
@@ -154,11 +156,42 @@ const PropertyDescription = () => {
                                         <BathtubIcon id='icons-in-description' />
                                     </div>
                                     <div className='icon-text-container'>
-                                        <div className='icons-blacktext-description'>Type:
+                                        <div className='icons-blacktext-description'>Parking:
                                             <span className='icons-description-blacktext-status'>
                                             </span>
                                         </div>
-                                        <span id='icons-in-description'>{(propertyData.propertyType)}</span>
+                                        {
+                                            (propertyData.parking) ?
+                                                <NoCrashIcon
+                                                    className='availability-icon-contact-owner'
+                                                    style={{ color: "#9ADE7B" }}
+                                                />
+                                                :
+                                                <TaxiAlertIcon
+                                                    className='availability-icon-contact-owner'
+                                                    style={{ color: "#BE3144" }}
+                                                />
+                                                || <Skeleton />
+                                        }
+                                    </div>
+                                    <div className='icon-text-container'>
+                                        <div className='icons-blacktext-description'>Furnished:
+                                            <span className='icons-description-blacktext-status'>
+                                            </span>
+                                        </div>
+                                        {
+                                            (propertyData.furnished) ? <ChairIcon
+                                                className='availability-icon-contact-owner'
+                                                style={{ color: "#9ADE7B" }}
+                                            />
+                                                :
+                                                <ChairIcon
+                                                    className='availability-icon-contact-owner'
+                                                    style={{ color: "#BE3144" }}
+                                                />
+
+                                                || <Skeleton />
+                                        }
                                     </div>
                                     <div className='icon-text-container'>
                                         <div className='icons-blacktext-description'>Construction:
@@ -174,6 +207,8 @@ const PropertyDescription = () => {
                                                 <EngineeringIcon
                                                     id='icons-in-description-under-construction'
                                                 />
+                                                ||
+                                                <Skeleton />
                                         }
                                     </div>
                                 </div>
@@ -182,6 +217,17 @@ const PropertyDescription = () => {
                                 <h3 className='about-text-description-page-header'>
                                     About This Home
                                 </h3>
+                                <h4 className='about-text-description-page-price-sub-header'>
+                                    Price: ₹ {propertyData.price}
+                                    <span className='about-text-description-page-sub-header-checker'>
+                                        {
+                                            (propertyData.advertisementType === "sell") ?
+                                                ""
+                                                :
+                                                "/month"
+                                        }
+                                    </span>
+                                </h4>
                                 <div className='about-text-description-blacktexts'>
                                     {propertyData.description}
                                 </div>
@@ -260,57 +306,6 @@ const PropertyDescription = () => {
                                         id='emailpropertyform'
                                     />
                                 </label>
-                                <label><HouseIcon /><span> Available for</span>
-                                    <input type='text'
-                                        onChange={handleOnChange}
-                                        value={(propertyData.advertisementType) || ""}
-                                        name='advertisementType'
-                                        id='advertisementType'
-                                        readOnly
-                                    />
-                                </label>
-
-                                <div className="propertyData-of-property-sell-rent-all-wrapper d-flex ml-4">
-                                    <div className='propertyData-of-property-sell-rent'>Parking: </div>
-                                    <p
-                                        onChange={handleOnChange}
-                                        name='parking'
-                                        id='parkingpropertyData'
-                                    >
-
-                                        {
-                                            (propertyData.parking) ? <NoCrashIcon
-                                                className='availability-icon-contact-owner'
-                                                style={{ color: "#9ADE7B" }}
-                                            />
-                                                :
-                                                <TaxiAlertIcon
-                                                    className='availability-icon-contact-owner'
-                                                    style={{ color: "#BE3144" }}
-                                                />
-                                        }
-                                    </p>
-                                    <div className='propertyData-of-property-sell-rent'>Furnished: </div>
-                                    <p
-                                        onChange={handleOnChange}
-                                        name='furnished'
-                                        id='furnished'
-                                    >
-
-                                        {
-                                            (propertyData.furnished) ? <ChairIcon
-                                                className='availability-icon-contact-owner'
-                                                style={{ color: "#9ADE7B" }}
-                                            />
-                                                :
-                                                <ChairIcon
-                                                    className='availability-icon-contact-owner'
-                                                    style={{ color: "#BE3144" }}
-                                                />
-                                        }
-                                    </p>
-                                </div>
-
                                 <input type='submit'
                                     value="Contact Owner"
                                     id='owner-contact-button'
