@@ -1,45 +1,63 @@
-import React, { useState,useEffect } from "react"
-import Sidebar from "../Sidebar/Sidebar"
-import "../Shared_Container.css"
-import "../AdminPages/AdminPageStyles/AdminSellPage.css"
+import React, { useEffect, useState } from 'react'
+import Sidebar from '../Sidebar/Sidebar'
+import "./AdminPageStyles/AdminContactPage.css"
 import { Box, Button, colors } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import DeleteIcon from '@mui/icons-material/Delete';
 
 
-const AdminSellPage = () => {
-    const [allSells, setAllSells] = useState([]);
-
-    const fetchAllSells = async () => {
+const AdminContactPage = () => {
+    const [allContacts, setAllContacts] = useState([])
+    const fetchAllContacts = async () => {
         try {
-            const response = await fetch("http://localhost:8000/api/property/getallsells", {
+            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/contact/fetchcontacts`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"
                 }
             });
+            const json = await response.json()
+            await setAllContacts(json.contacts);
 
-            const json = await response.json();
-            await setAllSells(json.sells);
         } catch (error) {
-            console.error("Error fetching users:", error.message);
+            console.error("Error fetching contact:", error.message)
         }
     }
+    useEffect(() => {
+        fetchAllContacts()
+    }, [])
 
     useEffect(() => {
-        fetchAllSells();
-    }, []);
+        console.log(allContacts)
+    }, [allContacts])
 
-    useEffect(() => {
-        console.log(allSells);
-    }, [allSells]);
 
-    // *Add unique IDs to each user in mockUsers
-    // TODO: change the 'mockUsers' to the required API
-    const sellsWithIds = allSells.map((value, index, array) => ({
-        id: index + 1,
+    const handleDelete = async (contact) => {
+        const contactId = contact.id;
+
+        console.log("Deleting contact with ID:", contactId);
+
+        setAllContacts((prev) => prev.filter((e) => e._id !== contactId));
+
+        try {
+            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/contact/deletecontact/${contactId}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+            const json = await response.json();
+            console.log(json);
+        } catch (error) {
+            console.error("Error While Deleting contact:", error.message);
+        }
+    };
+
+
+    const contactWithIds = allContacts.map((value, index, array) => ({
+        id: value._id,
         ...value,
-    }));
+    }))
     const columns = [
         {
             field: "_id",
@@ -48,41 +66,27 @@ const AdminSellPage = () => {
         },
 
         {
-            field: "imageUrls",
-            headerName: "image",
-            width: 100,
-            cellClassName: "photo-column-cell",
-            renderCell: (params) => <img src={params.value}
-                alt="There was something here"
-                id="admin-user-images"
-            />,
+            field: "name",
+            headerName: "Name",
+            flex: 1,
         },
 
         {
-            field: "ownerName",
-            headerName: "Owner Name",
+            field: "email",
+            headerName: "Email",
             flex: 1,
-            cellClassName: "name-column-cell"
         },
+
         {
-            field: "ownerPhn",
-            headerName: "Owner Phone",
-            flex: 1
+            field: "phone",
+            headerName: "Phone No.",
+            flex: 1,
         },
+
         {
-            field: "ownerEmail",
-            headerName: "Owner Email",
-            flex: 1
-        },
-        {
-            field: "propertyName",
-            headerName: "Property Name",
-            flex: 1
-        },
-        {
-            field: "price",
-            headerName: "Price",
-            flex: 1
+            field: "message",
+            headerName: "Message",
+            flex: 2,
         },
         {
             field: "action",
@@ -103,28 +107,28 @@ const AdminSellPage = () => {
                     <Button
                         color="error"
                         className="admin-user-table-action-button"
-                        id="admin-user-table-action-button">
+                        id="admin-user-table-action-button"
+                        onClick={handleDelete}
+                    >
                         <DeleteIcon />Delete
                     </Button>
                 </Box>
             ),
-        },
-    ];
+        }
+    ]
 
     return (
         <>
             <Sidebar />
             <div className="admin-main-container">
                 <div className="dashboard-main">
-                    <h2 className="ml-2"><strong className="admin-page-main-headers">Sell Page</strong></h2>
-
-                    {/* //!Start Writing Code from here */}
+                    <h2 className="ml-2"><strong className="admin-page-main-headers">Contact Page</strong></h2>
+                    {/* // !Start Writing code from here */}
                     <Box className="container"
                         height="auto"
                         width="100%"
                         mt="50px"
                     >
-
                         <DataGrid
 
                             sx={{
@@ -159,7 +163,7 @@ const AdminSellPage = () => {
                                     color: "#504099 !important",
                                 },
                             }}
-                            rows={sellsWithIds}
+                            rows={contactWithIds}
                             columns={columns}
                             slots={{ toolbar: GridToolbar }}
                             initialState={{
@@ -178,10 +182,14 @@ const AdminSellPage = () => {
                             disableRowSelectionOnClick
 
                         />
+
+
                     </Box>
+
                 </div>
-            </div>
+            </div >
         </>
-    );
-};
-export default AdminSellPage;
+    )
+}
+
+export default AdminContactPage

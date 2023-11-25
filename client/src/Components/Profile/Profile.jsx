@@ -58,7 +58,7 @@ const Profile = () => {
     const handleProfileUpdate = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`http://localhost:8000/api/user/update/${userData.id}`, {
+            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/user/update/${userData.id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -104,7 +104,7 @@ const Profile = () => {
     const handleProfileDelete = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`http://localhost:8000/api/user/delete/${userData.id}`, {
+            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/user/delete/${userData.id}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",

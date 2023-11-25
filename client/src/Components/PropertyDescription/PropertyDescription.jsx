@@ -37,14 +37,14 @@ const PropertyDescription = () => {
 
         const fetchPropertyData = async () => {
             try {
-                const propertyResponse = await fetch(`http://localhost:8000/api/property/getproperty/${params.propertyid}`, {
+                const propertyResponse = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/property/getproperty/${params.propertyid}`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json"
                     }
                 });
 
-                const userResponse = await fetch(`http://localhost:8000/api/property/getowneravatar/${params.propertyid}`, {
+                const userResponse = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/property/getowneravatar/${params.propertyid}`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json"

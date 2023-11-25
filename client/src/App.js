@@ -21,7 +21,9 @@ import Blogs from './Components/Blogs/Blogs';
 import BlogPost from './Components/Blogs/BlogPost';
 import AdminBlogPage from './Components/Admin/AdminPages/AdminBlogPage';
 import AdminRentPage from './Components/Admin/AdminPages/AdminRentPage';
-import AdminSellPage from './Components/Admin/AdminPages/AdminSellPage';
+import AdminBuyPage from './Components/Admin/AdminPages/AdminBuyPage';
+import AdminContactPage from './Components/Admin/AdminPages/AdminContactPage';
+import ErrorPage from './Components/ErrorPage/ErrorPage';
 
 function App() {
 
@@ -64,8 +66,10 @@ function App() {
           <Route exact path='/propertydescription/:propertyid' element={<PropertyDescription />}></Route>
           <Route exact path='/blogshome' element={<Blogs />}></Route>
           <Route exact path='/blogpost/:blogid' element={<BlogPost />}></Route>
-          <Route exact path="/adminsellpage" element={sessionStorage.getItem("isAdmin") ? <AdminSellPage /> : <Navigate to={"/adminlogin"} />}></Route>
+          <Route exact path="/adminbuypage" element={sessionStorage.getItem("isAdmin") ? <AdminBuyPage /> : <Navigate to={"/adminlogin"} />}></Route>
+          <Route exact path="/admincontactpage" element={sessionStorage.getItem("isAdmin") ? <AdminContactPage /> : <Navigate to={"/adminlogin"} />}></Route>
           <Route exact path="/adminrentpage" element={sessionStorage.getItem("isAdmin") ? <AdminRentPage /> : <Navigate to={"/adminlogin"} />}></Route>
+          <Route path="*" element=<ErrorPage />></Route>
         </Routes>
       </BrowserRouter>
     </>

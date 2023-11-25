@@ -3,10 +3,9 @@ import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import DonutLargeIcon from '@mui/icons-material/DonutLarge';
-import HomeIcon from '@mui/icons-material/Home';
-import SellIcon from '@mui/icons-material/Sell';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
+import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import SsidChartIcon from '@mui/icons-material/SsidChart';
 import { React, useEffect } from "react";
@@ -20,13 +19,13 @@ import "./Sidebar.css";
 const Sidebar = () => {
 
     useEffect(() => {
-        window.scrollTo(0,0);
+        window.scrollTo(0, 0);
     });
 
-    const handleLogout=(e)=>{
+    const handleLogout = (e) => {
         e.preventDefault();
         sessionStorage.removeItem("isAdmin");
-        window.location.href="/adminlogin";
+        window.location.href = "/adminlogin";
     }
 
     return (
@@ -68,22 +67,9 @@ const Sidebar = () => {
                                 </li>
                                 <div className="admin-title">PAGES</div>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="/adminhomepage" >
-                                        <HomeIcon className="admin-sidebar-icons" />
-                                        <span className="admin-sidebar-options">Home</span>
-                                    </Link>
-                                </li>
-                                <li className="nav-item">
                                     <Link className="nav-link" to="/adminbuypage" >
                                         <ShoppingCartIcon className="admin-sidebar-icons" />
-                                        <span className="admin-sidebar-options">Buy</span>
-
-                                    </Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/adminsellpage" >
-                                        <SellIcon className="admin-sidebar-icons" />
-                                        <span className="admin-sidebar-options">Sell</span>
+                                        <span className="admin-sidebar-options">Buys</span>
 
                                     </Link>
                                 </li>
@@ -91,7 +77,7 @@ const Sidebar = () => {
                                     <Link className="nav-link" to="/adminrentpage" >
                                         <AccessTimeIcon className="admin-sidebar-icons" />
 
-                                        <span className="admin-sidebar-options">Rent</span>
+                                        <span className="admin-sidebar-options">Rents</span>
                                     </Link>
                                 </li>
                                 <li className="nav-item">
@@ -99,6 +85,13 @@ const Sidebar = () => {
                                         <AutoStoriesIcon className="admin-sidebar-icons" />
 
                                         <span className="admin-sidebar-options">Blogs</span>
+                                    </Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/admincontactpage" >
+                                        <PhoneEnabledIcon className="admin-sidebar-icons" />
+
+                                        <span className="admin-sidebar-options">Contacts</span>
                                     </Link>
                                 </li>
                                 <div className="admin-title">CHARTS</div>

@@ -20,7 +20,7 @@ const RentPackages = () => {
 
         const fetchAllRents = async () => {
             try {
-                const response = await fetch(`http://localhost:8000/api/property/getallrents?searchTerm=${searchTerm}`, {
+                const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/property/getallrents?searchTerm=${searchTerm}`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json"

@@ -32,7 +32,7 @@ const Contact = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const response = await fetch("http://localhost:8000/api/contact/postcontact", {
+        const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/contact/postcontact`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

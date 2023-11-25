@@ -27,7 +27,7 @@ const MyProperty = () => {
     const fetchMyProperties = async () => {
         console.log(loading);
         try {
-            const response = await fetch(`http://localhost:8000/api/property/getmyproperty/${userData.id}`, {
+            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/property/getmyproperty/${userData.id}`, {
                 method: "GET",
                 headers: {
                     "Content-type": "application/json",
@@ -52,7 +52,7 @@ const MyProperty = () => {
 
         //API call to delete in DB
         try {
-            const response = await fetch(`http://localhost:8000/api/property/deleteProperty/${propertyId}`, {
+            const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/property/deleteProperty/${propertyId}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
