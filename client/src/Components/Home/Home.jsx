@@ -21,6 +21,7 @@ const Home = () => {
 
     useEffect(() => {
 
+        window.scrollTo(0, 0);
         const fetchAllSells = async () => {
             try {
                 const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/property/getallsells`, {
@@ -33,12 +34,11 @@ const Home = () => {
                 setTimeout(() => {
                     setLoading(false);
                 }, 2700);
-                setSalesData(json.sells)
+                setSalesData(json.sells.slice(0,4));
             } catch (error) {
                 console.log("Error While Fetching Sell Properties");
             }
         }
-        fetchAllSells();
 
         const fetchAllRents = async () => {
             try {
@@ -52,18 +52,15 @@ const Home = () => {
                 setTimeout(() => {
                     setLoading(false);
                 }, 2700);
-                setRentsData(json.rents)
+                setRentsData(json.rents.slice(0,4));
             } catch (error) {
                 console.log("Error While Fetching Rent Properties");
             }
         }
 
+        fetchAllSells();
         fetchAllRents();
-
-        window.scrollTo(0, 0);
         fetchTestimonials();
-        setSalesData((prevBuyData) => prevBuyData.slice(0, 4));
-        setRentsData((prevRentsData) => prevRentsData.slice(0, 4));
     }, []);
 
 
