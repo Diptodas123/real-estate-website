@@ -128,6 +128,20 @@ const Form = () => {
 
     const submitForm = async (e) => {
         e.preventDefault();
+
+        if (formData.pincode.startsWith("0")) {
+            return toast.error("Enter a valid pincode", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                transition: Flip,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
+        }
         try {
             setLoading(true);
             const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/property/postproperty`, {
