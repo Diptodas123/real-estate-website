@@ -95,7 +95,7 @@ const RentPackages = () => {
                         <div className="row">
                             {
 
-                                loading === true ? <img src='https://cdn.dribbble.com/users/330915/screenshots/2311781/media/2e95edec9c2a16605982c96d1044023b.gif' alt='spinner' style={{ margin: "0 auto", display: "block" }} /> :
+                                loading === true ? <img className="loading-img" src='https://cdn.dribbble.com/users/330915/screenshots/2311781/media/2e95edec9c2a16605982c96d1044023b.gif' alt='spinner' style={{ margin: "0 auto", display: "block" }} /> :
                                     rentsData.length !== 0 ?
                                         rentsData.map((value) => {
                                             const { imageUrls, propertyName, bathrooms, price, bedrooms, street, city, state, } = value;

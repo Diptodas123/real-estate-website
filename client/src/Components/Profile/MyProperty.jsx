@@ -97,7 +97,7 @@ const MyProperty = () => {
             <div className='my-property-main container'>
                 <h1 className='text-center font-weight-bold my-2'>My Properties</h1>
                 {
-                    loading === true ? <img src='https://cdn.dribbble.com/users/330915/screenshots/2311781/media/2e95edec9c2a16605982c96d1044023b.gif' alt='spinner' style={{ margin: "80px auto", display: "block" }} /> :
+                    loading === true ? <img className="loading-img" src='https://cdn.dribbble.com/users/330915/screenshots/2311781/media/2e95edec9c2a16605982c96d1044023b.gif' alt='spinner' style={{ margin: "80px auto", display: "block" }} /> :
                         property && property.length > 0 ?
                             (<div className="row">
                                 {

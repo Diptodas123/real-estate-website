@@ -34,7 +34,7 @@ const Home = () => {
                 setTimeout(() => {
                     setLoading(false);
                 }, 2700);
-                setSalesData(json.sells.slice(0,4));
+                setSalesData(json.sells.slice(0, 4));
             } catch (error) {
                 console.log("Error While Fetching Sell Properties");
             }
@@ -52,7 +52,7 @@ const Home = () => {
                 setTimeout(() => {
                     setLoading(false);
                 }, 2700);
-                setRentsData(json.rents.slice(0,4));
+                setRentsData(json.rents.slice(0, 4));
             } catch (error) {
                 console.log("Error While Fetching Rent Properties");
             }
@@ -178,7 +178,7 @@ const Home = () => {
                 <div className="row text-left">
                     {
                         loading === true ?
-                            <img src='https://cdn.dribbble.com/users/330915/screenshots/2311781/media/2e95edec9c2a16605982c96d1044023b.gif' alt='Loading...' style={{ margin: "0 auto", display: "block" }} />
+                            <img className="loading-img" src='https://cdn.dribbble.com/users/330915/screenshots/2311781/media/2e95edec9c2a16605982c96d1044023b.gif' alt='Loading...' />
                             :
                             buyData.map((value) => {
                                 const { imageUrls, propertyName, bathrooms, price, bedrooms, street, city, state, } = value;
@@ -271,7 +271,7 @@ const Home = () => {
                 <div className="row text-left">
                     {
                         loading === true ?
-                            <img src='https://cdn.dribbble.com/users/330915/screenshots/2311781/media/2e95edec9c2a16605982c96d1044023b.gif' alt='Loading...' style={{ margin: "0 auto", display: "block" }} />
+                            <img className="loading-img" src='https://cdn.dribbble.com/users/330915/screenshots/2311781/media/2e95edec9c2a16605982c96d1044023b.gif' alt='Loading...' style={{ margin: "0 auto", display: "block" }} />
                             :
                             rentsData.map((value) => {
                                 const { imageUrls, propertyName, bathrooms, price, bedrooms, street, city, state, } = value;

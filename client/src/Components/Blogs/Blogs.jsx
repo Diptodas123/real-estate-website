@@ -42,7 +42,7 @@ export default function Blogs() {
           <h3 className='my-3'><b>Explore Blogs to get your dream house </b></h3>
           <div className="row" >
             {
-              loading === true ? <img src='https://cdn.dribbble.com/users/330915/screenshots/2311781/media/2e95edec9c2a16605982c96d1044023b.gif' alt='spinner' style={{ margin: "80px auto", display: "block" }} /> :
+              loading === true ? <img className="loading-img" src='https://cdn.dribbble.com/users/330915/screenshots/2311781/media/2e95edec9c2a16605982c96d1044023b.gif' alt='spinner' style={{ margin: "80px auto", display: "block" }} /> :
                 blogs && blogs.map((blog) => {
                   const { _id, title, content, author, image } = blog;
                   return (
