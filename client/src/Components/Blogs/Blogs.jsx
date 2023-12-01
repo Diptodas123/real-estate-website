@@ -35,7 +35,7 @@ export default function Blogs() {
       <Menu />
       <div className="mt-5">
         <div className="blogs-page-header-hero">
-          <img src="https://www.techelium.in/wp-content/uploads/2015/10/blog-banner.jpg" height={"100%"} width={"100%"} style={{ boxShadow: "rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px" }} />
+          <img src="img/blog-banner.jpg" height={"100%"} width={"100%"} style={{ boxShadow: "rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px" }} />
         </div>
 
         <div className="container blogs">

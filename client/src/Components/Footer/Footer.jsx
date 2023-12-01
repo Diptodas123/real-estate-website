@@ -58,22 +58,22 @@ const Footer = () => {
                                 <span className="footer-col-heading" style={{ borderBottom: "1px dotted white", fontSize: "25px" }}>Useful Links</span></h5>
                             <ul className="list-unstyled">
                                 <li className="mb-2 font-weight-bold ">
-                                    <Link to="/" className="footer-text-link text-decoration-none" onClick={backToTop}>
+                                    <Link to="/" className="footer-text-link text-decoration-none">
                                         Home
                                     </Link>
                                 </li>
                                 <li className="mb-2 font-weight-bold ">
-                                    <Link to="/blogs" className="footer-text-link text-decoration-none" onClick={backToTop}>
+                                    <Link to="/blogshome" className="footer-text-link text-decoration-none">
                                         Blog
                                     </Link>
                                 </li>
                                 <li className="mb-2 font-weight-bold ">
-                                    <Link to="/about" className="footer-text-link text-decoration-none" onClick={backToTop}>
+                                    <Link to="/about" className="footer-text-link text-decoration-none">
                                         About Us
                                     </Link>
                                 </li>
                                 <li className="mb-2 font-weight-bold ">
-                                    <Link to="/contact" className="footer-text-link text-decoration-none" onClick={backToTop}>
+                                    <Link to="/contact" className="footer-text-link text-decoration-none">
                                         Contact Us
                                     </Link>
                                 </li>
@@ -86,17 +86,17 @@ const Footer = () => {
 
                             <ul className="list-unstyled">
                                 <li className="mb-2 font-weight-bold ">
-                                    <Link to="/buy" className="footer-text-link text-decoration-none" onClick={backToTop}>
+                                    <Link to="/buy" className="footer-text-link text-decoration-none">
                                         Buy
                                     </Link>
                                 </li>
                                 <li className="mb-2 font-weight-bold">
-                                    <Link to="/postproperty" className="footer-text-link text-decoration-none" onClick={backToTop}>
+                                    <Link to="/rent" className="footer-text-link text-decoration-none">
                                         Rent
                                     </Link>
                                 </li>
                                 <li className="mb-2 font-weight-bold ">
-                                    <Link to="/postproperty" className="footer-text-link text-decoration-none" onClick={backToTop}>
+                                    <Link to="/listproperty" className="footer-text-link text-decoration-none">
                                         Advertise
                                     </Link>
                                 </li>
