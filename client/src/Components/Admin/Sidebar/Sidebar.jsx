@@ -14,8 +14,6 @@ import "../Shared_Container.css";
 import "./Sidebar.css";
 
 
-
-
 const Sidebar = () => {
 
     useEffect(() => {
